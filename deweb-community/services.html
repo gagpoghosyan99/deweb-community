@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>DEWEB — Service Details</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="details-body">
+
+  <nav class="navbar navbar-details">
+    <div class="logo">D</div>
+    <ul class="nav-links">
+      <li><a href="#" id="backToDeweb">← Back to DEWEB</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-dd" id="langDD">
+        <button class="lang-dd__btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-dd__label" id="langLabel">EN</span>
+          <span class="lang-dd__arrow" aria-hidden="true">‹</span>
+        </button>
+        <div class="lang-dd__menu" id="langMenu" role="listbox" aria-label="Language"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="details-page">
+    <header class="details-head">
+      <span class="badge" id="catBadge">Service</span>
+      <h1 id="catTitle">Web & E-commerce</h1>
+      <p class="sub" id="catSubtitle">Choose what you need — each item has scope, base price, and the option to offer your price.</p>
+    </header>
+
+    <section class="details-list" id="detailsGrid"></section>
+
+    <section class="cart-section" id="cartSection">
+      <h3 id="cartTitle">Your cart</h3>
+
+      <div class="cart-offer-buy-row">
+        <div class="cart-offer-col">
+          <h4 id="offerTitle">Offer your price</h4>
+          <p class="sub" id="offerSub">Tell us your scope and budget — we'll reply with the best plan and timeline.</p>
+          <div class="offer-selected-name" id="offerSelectedName"></div>
+          <form class="order-form" id="offerForm">
+            <label for="offerText" id="offerLabel">What do you need?</label>
+            <textarea id="offerText" rows="4" placeholder="Describe your project..."></textarea>
+            <div class="order-2col">
+              <input id="offerName" type="text" placeholder="Name" />
+              <input id="offerEmail" type="email" placeholder="Email" required />
+            </div>
+            <div class="order-2col">
+              <input id="offerBudget" type="text" placeholder="Your budget (optional)" />
+              <input id="offerDeadline" type="text" placeholder="Deadline (optional)" />
+            </div>
+            <button class="cta-btn primary" type="submit">Send inquiry</button>
+          </form>
+        </div>
+        <div class="cart-buy-col">
+          <h4 id="buyTitle">Buy</h4>
+          <div class="buy-selected" id="buySelected">
+            <div class="buy-selected-name" id="buySelectedName">Select a service above</div>
+            <div class="buy-selected-price" id="buySelectedPrice">—</div>
+          </div>
+          <div class="buy-actions-row">
+            <button type="button" class="cta-btn primary" id="addToCartBtn">Add to cart</button>
+            <div class="buy-promo-wrap">
+              <label for="promoCode" id="promoLabel">Promocode</label>
+              <input type="text" id="promoCode" placeholder="e.g. HAYUGEN" autocomplete="off" />
+            </div>
+            <button type="button" class="cta-btn secondary" id="payDirectBtn">Pay</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-manage-section" id="cartManageSection">
+        <h4 id="cartItemsTitle">Items in cart</h4>
+        <div class="cart-list" id="cartList"></div>
+        <div class="cart-checkout-wrap">
+          <button type="button" class="cta-btn primary" id="checkoutBtn">Checkout</button>
+        </div>
+      </div>
+
+      <div class="payment-section" id="paymentSection">
+        <h4 id="payWithLabel">Pay with</h4>
+        <div class="payment-tabs">
+          <button type="button" class="payment-tab active" data-method="card"><span id="payCard">Card</span></button>
+          <button type="button" class="payment-tab" data-method="crypto"><span id="payCrypto">Crypto</span></button>
+          <button type="button" class="payment-tab" data-method="bank"><span id="payBank">Bank transfer</span></button>
+        </div>
+        <div class="payment-method payment-method-card" data-panel="card">
+          <label>Card number</label>
+          <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" />
+          <div class="payment-row">
+            <div><label>Expiry</label><input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" /></div>
+            <div><label>CVC</label><input type="text" id="cardCvc" placeholder="123" maxlength="4" /></div>
+          </div>
+          <label>Name on card</label>
+          <input type="text" id="cardName" placeholder="Full name" />
+          <button type="button" class="cta-btn primary" id="payCardBtn">Pay now</button>
+        </div>
+        <div class="payment-method payment-method-crypto" data-panel="crypto" style="display:none">
+          <label>Wallet address / Payment details</label>
+          <input type="text" id="cryptoWallet" placeholder="Your wallet address or payment ID" />
+          <button type="button" class="cta-btn primary" id="payCryptoBtn">Pay now</button>
+        </div>
+        <div class="payment-method payment-method-bank" data-panel="bank" style="display:none">
+          <label>Bank details / Reference</label>
+          <textarea id="bankDetails" rows="3" placeholder="Account number, bank name, or payment reference"></textarea>
+          <button type="button" class="cta-btn primary" id="payBankBtn">Pay now</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="services.js"></script>
+</body>
+</html>

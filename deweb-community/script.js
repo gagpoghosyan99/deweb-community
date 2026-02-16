@@ -212,21 +212,35 @@ document.addEventListener("DOMContentLoaded", () => {
         devPortfolio:"My Portfolio",
         devNew:"New Orders",
         devDone:"Completed"
-      }
+      },
+      contact: { placeholderMessage: "Write your message...", placeholderEmail: "Write your e-mail...", sendButton: "SEND MESSAGE" }
     },
 
-    // keep your RU/HY same as you sent (no changes)
-    ru: I18N_PLACEHOLDER_RU(),
-    hy: I18N_PLACEHOLDER_HY()
+    ru: {
+      nav: { home: "Главная", services: "Услуги", packages: "Пакеты", order: "Заказ", marketplace: "Маркетплейс", about: "О нас", contact: "Контакты", account: "Аккаунт" },
+      home: { title: "IT-студия и маркетплейс", subtitle: "Сайты, боты, автоматизация, дизайн — быстро и масштабируемо. Закажите под ключ или наймите проверенных специалистов.", cta1: "Заказ от 0 до 100%", cta2: "В маркетплейс", stat1b: "Пакеты", stat1s: "Фиксированный объём", stat2b: "Этапы", stat2s: "Отслеживание в аккаунте", stat3b: "Роли", stat3s: "Клиент или разработчик" },
+      services: { title: "Что делает DEWEB", subtitle: "Мы продаём решения, а не часы. Выберите направление или закажите полный цикл.", cta: "Получить предложение", web: { t: "Веб и E-commerce", d: "Лендинги, корпоративные сайты, интернет-магазины." }, bot: { t: "Боты и автоматизация", d: "Telegram-боты, интеграции, мониторинг." }, design: { t: "Дизайн и брендинг", d: "UI/UX, логотипы, Figma." }, growth: { t: "Рост и поддержка", d: "Поддержка, аналитика, безопасность." }, whyTitle: "Почему выбирают DEWEB", why1: "Пакетные предложения", why2: "Оплата по этапам", why3: "Статусы в аккаунте", why4: "Сеть исполнителей", forSupTitle: "Для поставщиков", forSup1: "Стабильные заказы", forSup2: "Работа под брендом DEWEB", forSup3: "Портфолио и профиль", forSup4: "Заявки в дашборде", forSupCTA: "В маркетплейс" },
+      packages: { title: "IT-пакеты", subtitle: "Понятный объём, цена, сроки. Поддержка опционально.", cta: "Получить предложение →", cta2: "Связаться", web: { title: "Запуск сайта", desc: "Лендинг или корпоративный сайт.", li1: "UI/UX и адаптив", li2: "SEO и аналитика", li3: "Размещение и 30 дней поддержки" }, bot: { title: "Система Telegram-бота", desc: "Продажи, запись, CRM, платежи.", li1: "Админ-панель", li2: "Интеграции", li3: "Размещение" }, design: { title: "Бренд и UI Kit", desc: "Логотип, правила бренда, UI в Figma.", li1: "Логотип и идентичность", li2: "UI kit", li3: "Передача в разработку" }, support: { title: "Месячная поддержка", desc: "Правки, обновления, безопасность.", li1: "Приоритетные правки", li2: "Производительность", li3: "Отчёты" }, noteBadge: "Совет", noteText: "Не знаете, какой пакет подходит? Оформите заказ — предложим объём и цену." },
+      order: { title: "Заказ от 0 до 100%", subtitle: "Оставьте заявку. Ответим с объёмом, ценой, сроками и способами оплаты.", s1: "Заявка", s1d: "вы отправляете детали", s2: "Предложение", s2d: "объём и цена", s3: "Оплата", s3d: "по этапам", s4: "Доставка", s4d: "тест и запуск", howTitle: "Как это в аккаунте", how1: "Статус заказа: Заявка → Предложение → Оплачено → В работе → Доставлено → Готово", how2: "Можно добавить файлы (в полной версии)", how3: "Разработчики могут брать задачи", openAccount: "Открыть аккаунт", service: "Услуга", budget: "Бюджет", deadline: "Срок", details: "Детали проекта", contact: "Контакт", opt: { website: "Сайт / Лендинг / E-commerce", bot: "Telegram-бот / Автоматизация", design: "Дизайн / Брендинг / UI", support: "Поддержка / Рост" }, pay: { card: "Карта", crypto: "Криптовалюта", bank: "Банк", cash: "Наличные" }, send: "Отправить заявку", note: "После отправки заказ появится в аккаунте." },
+      market: { title: "Маркетплейс", subtitle: "Нанять специалистов или брать задачи как разработчик.", filters: "Фильтры", all: "Все роли", dev: "Разработчики", skillAll: "Все навыки", tipBadge: "Совет", tipText: "Разработчики: регистрация → роль «Разработчик» → портфолио → заявки в дашборде.", openAccount: "Открыть аккаунт", openOrders: "Открытые заказы", createOrder: "Создать заказ" },
+      about: { title: "О DEWEB", base: "DEWEB — IT-студия и маркетплейс. Сайты, автоматизация, боты, дизайн. Проверенные разработчики получают заказы, клиенты — предсказуемый результат.", v1b: "Скорость", v1s: "Быстро без хаоса", v2b: "Ясность", v2s: "Пакеты, объём, этапы", v3b: "Качество", v3s: "Продакшен-уровень", cards: { web: "Веб и E-commerce", bots: "Боты и автоматизация", design: "Дизайн и брендинг", growth: "Рост и поддержка", market: "Маркетплейс", process: "Процесс" } },
+      acc: { signin: "Вход", signup: "Регистрация", dashboard: "Дашборд", signinBtn: "Войти", signupBtn: "Создать аккаунт", roleClient: "Клиент", roleDev: "Разработчик", siNote: "Нет аккаунта? Зарегистрируйтесь.", suNote: "После регистрации можно отслеживать заказы или откликаться на задачи.", logout: "Выйти" },
+      dash: { clientOrders: "Мои заказы", devPortfolio: "Портфолио", devNew: "Новые заказы", devDone: "Выполнено" },
+      contact: { placeholderMessage: "Напишите сообщение...", placeholderEmail: "Ваш e-mail...", sendButton: "ОТПРАВИТЬ" }
+    },
+    hy: {
+      nav: { home: "Գլխավոր", services: "Ծառայություններ", packages: "Փաթեթներ", order: "Պատվեր", marketplace: "Մարկետփլեյս", about: "Մեր մասին", contact: "Կապ", account: "Հաշիվ" },
+      home: { title: "IT ստուդիա և մարկետփլեյս", subtitle: "Կայքեր, բոտեր, ավտոմատացում, դիզայն — արագ և մասշտաբելի։ Պատվիրեք ամբողջությամբ կամ վարձեք ստուգված մասնագետներին։", cta1: "Պատվեր 0-ից 100%", cta2: "Դեպի մարկետփլեյս", stat1b: "Փաթեթներ", stat1s: "Ֆիքսված շրջանակ", stat2b: "Փուլեր", stat2s: "Հետևում հաշվում", stat3b: "Դերեր", stat3s: "Կլիենտ կամ մշակող" },
+      services: { title: "Ինչ է առաջարկում DEWEB", subtitle: "Մենք վաճառում ենք լուծումներ, ոչ ժամեր։ Ընտրեք ուղղություն կամ պատվիրեք ամբողջ արտադրությունը։", cta: "Ստանալ առաջարկ", web: { t: "Վեբ և E-commerce", d: "Լենդինգներ, կորպորատիվ կայքեր, առցանց խանութներ։" }, bot: { t: "Բոտեր և ավտոմատացում", d: "Telegram բոտեր, ինտեգրացիաներ։" }, design: { t: "Դիզայն և ապրանքանիշ", d: "UI/UX, լոգոներ, Figma։" }, growth: { t: "Աճ և աջակցություն", d: "Աջակցություն, անալիտիկա, անվտանգություն։" }, whyTitle: "Ինչու DEWEB", why1: "Փաթեթային առաջարկներ", why2: "Վճարում փուլերով", why3: "Կարգավիճակ հաշվում", why4: "Կատարողների ցանց", forSupTitle: "Մատակարարների համար", forSup1: "Կայուն պատվերներ", forSup2: "Աշխատանք DEWEB ապրանքանիշի ներքո", forSup3: "Պորտֆոլիո և պրոֆիլ", forSup4: "Հարցումներ դաշշբորդում", forSupCTA: "Դեպի մարկետփլեյս" },
+      packages: { title: "IT փաթեթներ", subtitle: "Հասկանալի շրջանակ, գին, ժամկետներ։ Աջակցությունը ընտրովի է։", cta: "Ստանալ առաջարկ →", cta2: "Կապվել", web: { title: "Կայքի մեկնարկ", desc: "Լենդինգ կամ կորպորատիվ կայք։", li1: "UI/UX և ադապտիվ", li2: "SEO և անալիտիկա", li3: "Տեղակայում և 30 օր աջակցություն" }, bot: { title: "Telegram բոտի համակարգ", desc: "Վաճառք, ամրագրում, CRM, վճարումներ։", li1: "Ադմին-պանել", li2: "Ինտեգրացիաներ", li3: "Տեղակայում" }, design: { title: "Ապրանքանիշ և UI Kit", desc: "Լոգո, ապրանքանիշի կանոններ, UI Figma-ում։", li1: "Լոգո և իդենտիկություն", li2: "UI kit", li3: "Հանձնում մշակողին" }, support: { title: "Ամսական աջակցություն", desc: "Ուղղումներ, թարմացումներ, անվտանգություն։", li1: "Առաջնահերթ ուղղումներ", li2: "Արագություն", li3: "Հաշվետվություններ" }, noteBadge: "Խորհուրդ", noteText: "Չգիտե՞ք, թե որ փաթեթը հարմար է։ Օգտագործեք «Պատվեր» — կառաջարկենք շրջանակ և գին։" },
+      order: { title: "Պատվեր 0-ից 100%", subtitle: "Ուղարկեք հարցում։ Կպատասխանենք շրջանակով, գնով, ժամկետներով և վճարման եղանակներով։", s1: "Հարցում", s1d: "դուք ուղարկում եք մանրամասներ", s2: "Առաջարկ", s2d: "շրջանակ և գին", s3: "Վճարում", s3d: "փուլեր", s4: "Առաքում", s4d: "թեստ և մեկնարկ", howTitle: "Ինչպես է աշխատում հաշվում", how1: "Պատվերի կարգավիճակ՝ Հարցում → Առաջարկ → Վճարված → Ընթացքում → Առաքված → Պատրաստ", how2: "Կարող եք ավելացնել ֆայլեր (լրիվ տարբերակում)", how3: "Մշակողները կարող են վերցնել առաջադրանքներ", openAccount: "Բացել հաշիվ", service: "Ծառայություն", budget: "Բյուջե", deadline: "Ժամկետ", details: "Նախագծի մանրամասներ", contact: "Կապ", opt: { website: "Կայք / Լենդինգ / E-commerce", bot: "Telegram բոտ / Ավտոմատացում", design: "Դիզայն / Ապրանքանիշ / UI", support: "Աջակցություն / Աճ" }, pay: { card: "Քարտ", crypto: "Կրիպտո", bank: "Բանկ", cash: "Կանխիկ" }, send: "Ուղարկել հարցում", note: "Ուղարկելուց հետո պատվերը կերևա հաշվի դաշշբորդում։" },
+      market: { title: "Մարկետփլեյս", subtitle: "Վարձեք մասնագետներ կամ վերցրեք առաջադրանքներ որպես մշակող։", filters: "Զտիչներ", all: "Բոլոր դերերը", dev: "Մշակողներ", skillAll: "Բոլոր հմտությունները", tipBadge: "Խորհուրդ", tipText: "Մշակողներ՝ գրանցում → «Մշակող» դեր → պորտֆոլիո → առաջադրանքներ դաշշբորդում։", openAccount: "Բացել հաշիվ", openOrders: "Բաց պատվերներ", createOrder: "Ստեղծել պատվեր" },
+      about: { title: "DEWEB-ի մասին", base: "DEWEB-ը IT արտադրության ստուդիա և մարկետփլեյս է։ Կայքեր, ավտոմատացում, բոտեր, դիզայն։ Ստուգված մշակողները ստանում են պատվերներ, կլիենտները՝ կանխատեսելի արդյունք։", v1b: "Արագություն", v1s: "Արագ առանց խառնաշփոթի", v2b: "Պարզություն", v2s: "Փաթեթներ, շրջանակ, փուլեր", v3b: "Որակ", v3s: "Արտադրության մակարդակ", cards: { web: "Վեբ և E-commerce", bots: "Բոտեր և ավտոմատացում", design: "Դիզայն և ապրանքանիշ", growth: "Աճ և աջակցություն", market: "Մարկետփլեյս", process: "Գործընթաց" } },
+      acc: { signin: "Մուտք", signup: "Գրանցում", dashboard: "Դաշշբորդ", signinBtn: "Մուտք", signupBtn: "Ստեղծել հաշիվ", roleClient: "Կլիենտ", roleDev: "Մշակող", siNote: "Հաշիվ չունե՞ք։ Գրանցվեք։", suNote: "Գրանցումից հետո կարող եք հետևել պատվերներին կամ արձագանքել առաջադրանքներին։", logout: "Դուրս գալ" },
+      dash: { clientOrders: "Իմ պատվերները", devPortfolio: "Պորտֆոլիո", devNew: "Նոր պատվերներ", devDone: "Կատարված" },
+      contact: { placeholderMessage: "Գրեք ձեր հաղորդագրությունը...", placeholderEmail: "Ձեր e-mail...", sendButton: "ՈՒՂԱՐԿԵԼ" }
+    }
   };
-
-  // ✅ keep RU/HY from your original (to avoid huge message duplication)
-  function I18N_PLACEHOLDER_RU(){ return window.__I18N_RU__ || {}; }
-  function I18N_PLACEHOLDER_HY(){ return window.__I18N_HY__ || {}; }
-
-  // ✅ IMPORTANT: Put your original RU/HY objects into window vars
-  // (Right after I18N object we set them from your existing text)
-  // We will do it below (so you keep everything without rewriting).
 
   function applyI18n(lang){
     const dict = I18N[lang] || I18N.en;
@@ -238,6 +252,16 @@ document.addEventListener("DOMContentLoaded", () => {
       for (const k of path) cur = cur?.[k];
       if (typeof cur === "string") el.textContent = cur;
     });
+
+    const c = dict.contact;
+    if (c) {
+      const suggestions = document.getElementById("suggestions");
+      if (suggestions) suggestions.placeholder = c.placeholderMessage;
+      const contactEmail = document.getElementById("email");
+      if (contactEmail) contactEmail.placeholder = c.placeholderEmail;
+      const sendBtn = document.querySelector(".contact-form .send-btn");
+      if (sendBtn) sendBtn.textContent = c.sendButton;
+    }
   }
 
   /* =========================
@@ -319,17 +343,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const panelTitle = document.getElementById("panelTitle");
   const panelDesc  = document.getElementById("panelDesc");
   const panelBullets = document.getElementById("panelBullets");
-  const panelOpenBtn = document.getElementById("panelOpenBtn");
+  const panelDetailsLink = document.getElementById("panelDetailsLink");
 
-  const modal = document.getElementById("svcModal");
-  const modalClose = document.getElementById("svcModalClose");
-  const modalBack = document.getElementById("svcModalBack");
-  const modalBadge = document.getElementById("svcModalBadge");
-  const modalTitle = document.getElementById("svcModalTitle");
-  const modalDesc  = document.getElementById("svcModalDesc");
-  const modalGrid  = document.getElementById("svcModalGrid");
-
-  if (!stack || !panelTitle || !panelDesc || !panelBullets || !panelOpenBtn) return;
+  if (!stack || !panelTitle || !panelDesc || !panelBullets) return;
 
   // You can rewrite texts later via i18n. For now EN prototype.
   const content = {
@@ -417,41 +433,11 @@ document.addEventListener("DOMContentLoaded", () => {
       panelBullets.appendChild(li);
     });
 
+    if (panelDetailsLink) panelDetailsLink.href = "services.html?cat=" + key;
+
     stack.querySelectorAll(".svc-item").forEach(btn => {
       btn.classList.toggle("is-active", btn.dataset.key === key);
     });
-  }
-
-  function openModal(){
-    const data = content[activeKey];
-    if (!data || !modal) return;
-
-    modalBadge.textContent = data.title;
-    modalTitle.textContent = data.title;
-    modalDesc.textContent  = data.desc;
-
-    modalGrid.innerHTML = "";
-    data.details.forEach(box => {
-      const el = document.createElement("div");
-      el.className = "svc-modal__box";
-      el.innerHTML = `
-        <h3>${box.h}</h3>
-        <ul>${box.items.map(x => `<li>${x}</li>`).join("")}</ul>
-      `;
-      modalGrid.appendChild(el);
-    });
-
-    modal.classList.add("is-open");
-    modal.setAttribute("aria-hidden", "false");
-
-    // allow browser "Back" to close modal
-    history.pushState({ svcModal: true }, "", "#details");
-  }
-
-  function closeModal(){
-    if (!modal) return;
-    modal.classList.remove("is-open");
-    modal.setAttribute("aria-hidden", "true");
   }
 
   // Left titles click → update panel
@@ -459,31 +445,6 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => setActive(btn.dataset.key));
     btn.addEventListener("mouseenter", () => setActive(btn.dataset.key));
     btn.addEventListener("focus", () => setActive(btn.dataset.key));
-  });
-
-  // Open details → modal inside same page
-  panelOpenBtn.addEventListener("click", openModal);
-
-  modalClose?.addEventListener("click", () => {
-    closeModal();
-    if (location.hash === "#details") history.back(); // keeps history clean
-  });
-
-  modalBack?.addEventListener("click", () => {
-    closeModal();
-    if (location.hash === "#details") history.back();
-  });
-
-  modal?.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      closeModal();
-      if (location.hash === "#details") history.back();
-    }
-  });
-
-  window.addEventListener("popstate", () => {
-    // When user clicks browser back, close the modal if open
-    if (modal?.classList.contains("is-open")) closeModal();
   });
 
   setActive("web");
@@ -687,26 +648,42 @@ document.addEventListener("DOMContentLoaded", () => {
       if (clientDash) clientDash.style.display = "block";
       if (devDash) devDash.style.display = "none";
 
-      const list = document.getElementById("clientOrdersList");
       const orders = getOrders().filter(o => o.clientId === me.id || o.clientEmail === me.email);
+      const statsEl = document.getElementById("clientDashStats");
+      const tbody = document.getElementById("clientOrdersList");
+      const fallback = document.getElementById("clientOrdersListFallback");
+      const tableWrap = document.querySelector(".dash-pro-table-wrap");
 
-      if (!list) return;
-
-      list.innerHTML = orders.length ? "" : `<div class="dash-item">No orders yet.</div>`;
-      orders.forEach(o => {
-        const el = document.createElement("div");
-        el.className = "dash-item";
-        el.innerHTML = `
-          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
-            <b>${o.id}</b>
-            <span class="badge">${o.stage}</span>
-          </div>
-          <div style="margin-top:8px;color:rgba(168,178,209,.95)">
-            ${o.service} • ${o.budget} • ${o.deadline || "no deadline"}
-          </div>
+      if (statsEl) {
+        const inProgress = orders.filter(o => o.stage === "In Progress" || o.stage === "Quote").length;
+        const delivered = orders.filter(o => o.stage === "Delivered" || o.stage === "Done").length;
+        const dict = I18N[currentLang] || I18N.en;
+        const ordersLabel = dict.dash?.clientOrders || "My Orders";
+        statsEl.innerHTML = `
+          <div class="dash-stat-item"><span class="dash-stat-value">${orders.length}</span><span class="dash-stat-label">${ordersLabel}</span></div>
+          <div class="dash-stat-item"><span class="dash-stat-value">${inProgress}</span><span class="dash-stat-label">In progress</span></div>
+          <div class="dash-stat-item"><span class="dash-stat-value">${delivered}</span><span class="dash-stat-label">Delivered</span></div>
         `;
-        list.appendChild(el);
-      });
+      }
+
+      if (tbody) {
+        if (orders.length === 0) {
+          if (tableWrap) tableWrap.style.display = "none";
+          if (fallback) { fallback.style.display = "block"; fallback.innerHTML = `<div class="dash-item">No orders yet.</div>`; }
+          tbody.innerHTML = "";
+        } else {
+          if (tableWrap) tableWrap.style.display = "block";
+          if (fallback) fallback.style.display = "none";
+          tbody.innerHTML = orders.map(o => `
+            <tr>
+              <td><strong>${escapeHtml(o.id)}</strong></td>
+              <td>${escapeHtml(o.service)}</td>
+              <td>${escapeHtml(o.budget)}</td>
+              <td><span class="badge badge-stage">${escapeHtml(o.stage)}</span></td>
+            </tr>
+          `).join("");
+        }
+      }
     }
 
     if (me.role === "dev"){
