@@ -1,0 +1,512 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>DEWEB — IT Studio & Marketplace</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">D</div>
+
+    <ul class="nav-links">
+      <li><a href="#" data-slide="0" class="active" data-i18n="nav.home">Home</a></li>
+      <li><a href="#" data-slide="1" data-i18n="nav.services">Services</a></li>
+      <li><a href="#" data-slide="2" data-i18n="nav.packages">Packages</a></li>
+      <li><a href="#" data-slide="3" data-i18n="nav.order">Order</a></li>
+      <li><a href="#" data-slide="4" data-i18n="nav.marketplace">Marketplace</a></li>
+      <li><a href="#" data-slide="5" data-i18n="nav.about">About</a></li>
+      <li><a href="#" data-slide="6" class="contact-btn" data-i18n="nav.contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <div class="lang-dd" id="langDD">
+  <button class="lang-dd__btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+    <span class="lang-dd__label" id="langLabel">EN</span>
+    <span class="lang-dd__arrow" aria-hidden="true">‹</span>
+  </button>
+
+  <div class="lang-dd__menu" id="langMenu" role="listbox" aria-label="Language">
+    <!-- JS will render the other 2 here -->
+  </div>
+</div>
+
+      <button class="account-btn" id="openAccountBtn" type="button" data-i18n="nav.account">Account</button>
+    </div>
+  </nav>
+
+  <!-- ARROWS -->
+  <div class="nav-arrow left" onclick="previousSlide()">‹</div>
+  <div class="nav-arrow right" onclick="nextSlide()">›</div>
+
+  <!-- SLIDER -->
+  <div class="slider-container">
+    <div class="slides-wrapper" id="slidesWrapper">
+
+      <!-- SLIDE 1: HOME -->
+      <section class="slide slide-1">
+        <div class="hero">
+          <div class="hero-badge">DEWEB</div>
+          <h1 data-i18n="home.title">IT Studio & Marketplace</h1>
+          <p class="mission" data-i18n="home.subtitle">
+            Websites, bots, automation, design — built fast, clean, and scalable. Order end-to-end or hire verified talent.
+          </p>
+
+          <div class="hero-actions">
+            <button class="cta-btn primary" onclick="goToSlide(3)" data-i18n="home.cta1">Order from 0 → 100%</button>
+            <button class="cta-btn secondary" onclick="goToSlide(4)" data-i18n="home.cta2">Explore Marketplace</button>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <b data-i18n="home.stat1b">Packages</b>
+              <span data-i18n="home.stat1s">Fixed scope offers</span>
+            </div>
+            <div class="stat">
+              <b data-i18n="home.stat2b">Milestones</b>
+              <span data-i18n="home.stat2s">Track progress in account</span>
+            </div>
+            <div class="stat">
+              <b data-i18n="home.stat3b">Roles</b>
+              <span data-i18n="home.stat3s">Client or Developer</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+     <!-- SLIDE: SERVICES (replace your current services content with this) -->
+<div class="slide slide-services" id="servicesSlide">
+
+  <div class="services-head">
+    <h1 data-i18n="services.title">What DEWEB delivers</h1>
+    <p data-i18n="services.subtitle">We sell solutions — not “hours”. Pick a direction or order full production.</p>
+  </div>
+
+  <div class="services-layout">
+    <!-- LEFT: list of cards (ONLY TITLES) -->
+    <div class="services-left" id="servicesStack">
+      <button class="svc-item is-active" type="button" data-key="web">
+        <span class="svc-title">Web & E-commerce</span>
+      </button>
+
+      <button class="svc-item" type="button" data-key="bots">
+        <span class="svc-title">Bots & Automation</span>
+      </button>
+
+      <button class="svc-item" type="button" data-key="design">
+        <span class="svc-title">Design & Branding</span>
+      </button>
+
+      <button class="svc-item" type="button" data-key="support">
+        <span class="svc-title">Growth & Support</span>
+      </button>
+    </div>
+
+    <!-- RIGHT: details panel (changes when you click left titles) -->
+    <div class="services-right">
+      <div class="svc-panel" id="svcPanel">
+        <div class="svc-badge" id="panelBadge">Web & E-commerce</div>
+        <h2 class="svc-panel-title" id="panelTitle">Web & E-commerce</h2>
+        <p class="svc-panel-desc" id="panelDesc">
+          High-converting landing pages, corporate websites, and e-commerce stores — fast, secure, scalable.
+        </p>
+
+        <ul class="svc-panel-bullets" id="panelBullets"></ul>
+
+        <button class="svc-open" id="panelOpenBtn" type="button">
+          Open details →
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL (same page, no navigation to another html) -->
+<div class="svc-modal" id="svcModal" aria-hidden="true">
+  <div class="svc-modal__card" role="dialog" aria-modal="true" aria-labelledby="svcModalTitle">
+    <button class="svc-modal__close" id="svcModalClose" type="button" aria-label="Close">✕</button>
+
+    <div class="svc-modal__badge" id="svcModalBadge">Web & E-commerce</div>
+    <h2 id="svcModalTitle">Web & E-commerce</h2>
+    <p class="svc-modal__desc" id="svcModalDesc"></p>
+
+    <div class="svc-modal__grid" id="svcModalGrid"></div>
+
+    <div class="svc-modal__footer">
+      <button class="svc-modal__back" id="svcModalBack" type="button">← Back</button>
+    </div>
+  </div>
+</div>
+
+
+
+      <!-- SLIDE 3: PACKAGES -->
+      <section class="slide slide-3">
+        <div class="packages-head">
+          <h1 data-i18n="packages.title">Productized IT Packages</h1>
+          <p class="mission" data-i18n="packages.subtitle">Clear scope. Clear price range. Fast delivery. Monthly support optional.</p>
+        </div>
+
+        <div class="packages-grid">
+          <div class="pkg">
+            <h3 data-i18n="packages.web.title">Website Launch</h3>
+            <p data-i18n="packages.web.desc">Landing / corporate website from design to deploy.</p>
+            <ul>
+              <li data-i18n="packages.web.li1">UI/UX + responsive</li>
+              <li data-i18n="packages.web.li2">SEO basics + analytics</li>
+              <li data-i18n="packages.web.li3">Deploy + 30 days support</li>
+            </ul>
+            <button class="cta-btn primary" onclick="goToSlide(3)" data-i18n="packages.cta">Get Quote →</button>
+          </div>
+
+          <div class="pkg">
+            <h3 data-i18n="packages.bot.title">Telegram Bot System</h3>
+            <p data-i18n="packages.bot.desc">Sales, booking, CRM automation, payments.</p>
+            <ul>
+              <li data-i18n="packages.bot.li1">Admin panel (basic)</li>
+              <li data-i18n="packages.bot.li2">Integrations (Sheets/CRM)</li>
+              <li data-i18n="packages.bot.li3">Deploy + monitoring</li>
+            </ul>
+            <button class="cta-btn primary" onclick="goToSlide(3)" data-i18n="packages.cta">Get Quote →</button>
+          </div>
+
+          <div class="pkg">
+            <h3 data-i18n="packages.design.title">Brand + UI Kit</h3>
+            <p data-i18n="packages.design.desc">Logo + brand rules + website UI design in Figma.</p>
+            <ul>
+              <li data-i18n="packages.design.li1">Logo + identity</li>
+              <li data-i18n="packages.design.li2">UI kit + components</li>
+              <li data-i18n="packages.design.li3">Ready for dev handoff</li>
+            </ul>
+            <button class="cta-btn primary" onclick="goToSlide(3)" data-i18n="packages.cta">Get Quote →</button>
+          </div>
+
+          <div class="pkg">
+            <h3 data-i18n="packages.support.title">Monthly Support</h3>
+            <p data-i18n="packages.support.desc">Updates, fixes, speed, security, small features.</p>
+            <ul>
+              <li data-i18n="packages.support.li1">Priority fixes</li>
+              <li data-i18n="packages.support.li2">Performance checks</li>
+              <li data-i18n="packages.support.li3">Reports + roadmap</li>
+            </ul>
+            <button class="cta-btn secondary" onclick="goToSlide(3)" data-i18n="packages.cta2">Talk to us</button>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <span class="badge" data-i18n="packages.noteBadge">Tip</span>
+          <p data-i18n="packages.noteText">Don’t know which package fits? Use “Order” and we will propose best scope + pricing.</p>
+          <button class="cta-btn primary" onclick="goToSlide(3)" data-i18n="packages.cta">Get Quote →</button>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: ORDER -->
+      <section class="slide slide-4">
+        <div class="order-wrap">
+          <div class="order-left">
+            <h1 data-i18n="order.title">Order from 0 → 100%</h1>
+            <p data-i18n="order.subtitle">Send your request. We reply with scope, price, timeline, and payment methods.</p>
+
+            <div class="order-steps">
+              <div class="step"><span>1</span><div><b data-i18n="order.s1">Inquiry</b><small data-i18n="order.s1d">you send details</small></div></div>
+              <div class="step"><span>2</span><div><b data-i18n="order.s2">Quote</b><small data-i18n="order.s2d">scope + price</small></div></div>
+              <div class="step"><span>3</span><div><b data-i18n="order.s3">Payment</b><small data-i18n="order.s3d">milestones</small></div></div>
+              <div class="step"><span>4</span><div><b data-i18n="order.s4">Delivery</b><small data-i18n="order.s4d">testing + launch</small></div></div>
+            </div>
+
+            <div class="order-mini">
+              <h3 data-i18n="order.howTitle">How it works inside your Account</h3>
+              <ul>
+                <li data-i18n="order.how1">You see your order status: Inquiry → Quote → Paid → In Progress → Delivered → Done</li>
+                <li data-i18n="order.how2">You can add files/links later (in real version)</li>
+                <li data-i18n="order.how3">Developers can claim tasks (Marketplace)</li>
+              </ul>
+
+              <button class="cta-btn secondary" id="openAccountFromOrder" type="button" data-i18n="order.openAccount">Open Account</button>
+            </div>
+          </div>
+
+          <form class="order-form" id="orderForm">
+            <label data-i18n="order.service">Service</label>
+            <select id="orderService">
+              <option value="website" data-i18n="order.opt.website">Website / Landing / E-commerce</option>
+              <option value="bot" data-i18n="order.opt.bot">Telegram Bot / Automation</option>
+              <option value="design" data-i18n="order.opt.design">Design / Branding / UI</option>
+              <option value="support" data-i18n="order.opt.support">Maintenance / Growth</option>
+            </select>
+
+            <label data-i18n="order.budget">Budget range</label>
+            <select id="orderBudget">
+              <option value="under500">Under $500</option>
+              <option value="500-1500">$500–$1500</option>
+              <option value="1500-5000">$1500–$5000</option>
+              <option value="5000+">$5000+</option>
+            </select>
+
+            <label data-i18n="order.deadline">Deadline</label>
+            <input id="orderDeadline" type="text" placeholder="e.g. 2 weeks / 1 month" />
+
+            <label data-i18n="order.details">Project details</label>
+            <textarea id="orderDetails" rows="6" placeholder="Describe what you need..."></textarea>
+
+            <label data-i18n="order.contact">Contact</label>
+            <div class="order-2col">
+              <input id="orderName" type="text" placeholder="Name" />
+              <input id="orderEmail" type="email" placeholder="Email" />
+            </div>
+            <div class="order-2col">
+              <input id="orderPhone" type="text" placeholder="Phone / Telegram" />
+              <select id="orderPay">
+                <option value="card" data-i18n="order.pay.card">Card</option>
+                <option value="crypto" data-i18n="order.pay.crypto">Crypto</option>
+                <option value="bank" data-i18n="order.pay.bank">Bank transfer</option>
+                <option value="cash" data-i18n="order.pay.cash">Cash</option>
+              </select>
+            </div>
+
+            <button class="cta-btn primary" type="submit" data-i18n="order.send">Send Inquiry</button>
+            <p class="order-note" data-i18n="order.note">After sending, you’ll see the order in your Account dashboard.</p>
+          </form>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: MARKETPLACE -->
+      <section class="slide slide-5">
+        <div class="section-head">
+          <h1 data-i18n="market.title">Marketplace</h1>
+          <p class="sub" data-i18n="market.subtitle">Hire specialists or claim tasks if you’re a developer.</p>
+        </div>
+
+        <div class="market-wrap">
+          <aside class="market-filters">
+            <h3 data-i18n="market.filters">Filters</h3>
+            <input id="marketSearch" type="text" placeholder="Search (name, skills)..." />
+            <select id="marketRole">
+              <option value="all" data-i18n="market.all">All roles</option>
+              <option value="dev" data-i18n="market.dev">Developers</option>
+            </select>
+            <select id="marketSkill">
+              <option value="all" data-i18n="market.skillAll">All skills</option>
+              <option value="frontend">Frontend</option>
+              <option value="backend">Backend</option>
+              <option value="bots">Bots</option>
+              <option value="design">Design</option>
+              <option value="seo">SEO</option>
+            </select>
+
+            <div class="market-hint">
+              <span class="badge" data-i18n="market.tipBadge">Tip</span>
+              <p data-i18n="market.tipText">Developers: sign up → role “Developer” → add portfolio → claim orders in dashboard.</p>
+              <button class="cta-btn secondary" id="openAccountFromMarket" type="button" data-i18n="market.openAccount">Open Account</button>
+            </div>
+          </aside>
+
+          <main class="market-main">
+            <div class="market-grid" id="marketGrid"></div>
+
+            <div class="market-orders">
+              <div class="market-orders-head">
+                <h2 data-i18n="market.openOrders">Open Orders</h2>
+                <button class="cta-btn primary" onclick="goToSlide(3)" data-i18n="market.createOrder">Create Order</button>
+              </div>
+              <div class="dash-list" id="openOrdersList"></div>
+            </div>
+          </main>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: ABOUT -->
+      <section class="slide slide-6" id="slide6">
+        <div class="about-left">
+          <h1 data-i18n="about.title">About DEWEB</h1>
+          <p id="aboutText" class="about-text" data-i18n="about.base">
+            DEWEB is a senior-led IT production studio + marketplace. We deliver websites, automation, bots, and design.
+            We also build a supplier ecosystem: verified developers get stable leads, clients get predictable delivery.
+          </p>
+
+          <div class="about-values">
+            <div class="val">
+              <b data-i18n="about.v1b">Speed</b>
+              <span data-i18n="about.v1s">Fast delivery without chaos</span>
+            </div>
+            <div class="val">
+              <b data-i18n="about.v2b">Clarity</b>
+              <span data-i18n="about.v2s">Packages, scope, milestones</span>
+            </div>
+            <div class="val">
+              <b data-i18n="about.v3b">Quality</b>
+              <span data-i18n="about.v3s">Production-first engineering</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-right">
+          <button class="service-card is-active" type="button" data-key="web">
+            <div class="service-icon">🌐</div>
+            <h3 data-i18n="about.cards.web">Web & E-commerce</h3>
+          </button>
+
+          <button class="service-card" type="button" data-key="bots">
+            <div class="service-icon">🤖</div>
+            <h3 data-i18n="about.cards.bots">Bots & Automation</h3>
+          </button>
+
+          <button class="service-card" type="button" data-key="design">
+            <div class="service-icon">🎨</div>
+            <h3 data-i18n="about.cards.design">Design & Branding</h3>
+          </button>
+
+          <button class="service-card" type="button" data-key="growth">
+            <div class="service-icon">📈</div>
+            <h3 data-i18n="about.cards.growth">Growth & Support</h3>
+          </button>
+
+          <button class="service-card" type="button" data-key="market">
+            <div class="service-icon">🧩</div>
+            <h3 data-i18n="about.cards.market">Marketplace</h3>
+          </button>
+
+          <button class="service-card" type="button" data-key="process">
+            <div class="service-icon">✅</div>
+            <h3 data-i18n="about.cards.process">Process</h3>
+          </button>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: CONTACT -->
+      <section class="slide slide-7">
+        <div class="social-icons">
+          <a class="social-icon" href="#" title="Facebook" aria-label="Facebook">
+            <span style="color:#1877f2; font-size:70px;">f</span>
+          </a>
+
+          <a class="social-icon" href="#" title="Instagram" aria-label="Instagram">
+            <svg width="72" height="72" viewBox="0 0 24 24" aria-hidden="true"
+              style="fill:none; stroke:url(#igGradient); stroke-width:2; stroke-linecap:round; stroke-linejoin:round;">
+              <defs>
+                <linearGradient id="igGradient" x1="0" y1="24" x2="24" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#f09433"/>
+                  <stop offset="0.25" stop-color="#e6683c"/>
+                  <stop offset="0.5" stop-color="#dc2743"/>
+                  <stop offset="0.75" stop-color="#cc2366"/>
+                  <stop offset="1" stop-color="#bc1888"/>
+                </linearGradient>
+              </defs>
+              <rect x="4" y="4" width="16" height="16" rx="4"></rect>
+              <circle cx="12" cy="12" r="3.5"></circle>
+              <circle cx="17.5" cy="6.5" r="0.8" style="fill:url(#igGradient); stroke:none;"></circle>
+            </svg>
+          </a>
+
+          <a class="social-icon" href="#" title="X" aria-label="X">
+            <span style="color:#1DA1F2; font-size:70px;">𝕏</span>
+          </a>
+
+          <a class="social-icon" href="#" title="TikTok" aria-label="TikTok">
+            <span style="
+              background: linear-gradient(45deg, #00f2ea, #ff0050, #00f2ea);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              font-size:70px;">♪</span>
+          </a>
+        </div>
+
+        <div class="contact-form">
+          <div class="form-group">
+            <textarea placeholder="Write your message..." id="suggestions"></textarea>
+          </div>
+          <div class="form-right">
+            <input type="email" placeholder="Write your e-mail..." id="email">
+            <button class="send-btn" onclick="submitForm()">SEND MESSAGE</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- DOTS -->
+  <div class="pagination" id="pagination"></div>
+
+  <!-- ACCOUNT MODAL -->
+  <div class="modal" id="accountModal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="closeAccountBtn" aria-label="Close">✕</button>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="signin" data-i18n="acc.signin">Sign in</button>
+        <button class="tab" data-tab="signup" data-i18n="acc.signup">Sign up</button>
+        <button class="tab" data-tab="dashboard" id="dashTab" style="display:none" data-i18n="acc.dashboard">Dashboard</button>
+      </div>
+
+      <!-- SIGN IN -->
+      <div class="tab-panel active" data-panel="signin">
+        <input id="siEmail" type="email" placeholder="Email" />
+        <input id="siPass" type="password" placeholder="Password" />
+        <button class="cta-btn primary" id="signInBtn" type="button" data-i18n="acc.signinBtn">Sign in</button>
+        <p class="muted" data-i18n="acc.siNote">Use sign up if you don't have an account.</p>
+      </div>
+
+      <!-- SIGN UP -->
+      <div class="tab-panel" data-panel="signup">
+        <div class="role-pick">
+          <label><input type="radio" name="role" value="client" checked /> <span data-i18n="acc.roleClient">Client</span></label>
+          <label><input type="radio" name="role" value="dev" /> <span data-i18n="acc.roleDev">Developer</span></label>
+        </div>
+
+        <input id="suName" type="text" placeholder="Full name" />
+        <input id="suEmail" type="email" placeholder="Email" />
+        <input id="suPass" type="password" placeholder="Password" />
+
+        <div id="clientFields">
+          <input id="suPhone" type="text" placeholder="Phone / Telegram" />
+          <input id="suCompany" type="text" placeholder="Company (optional)" />
+        </div>
+
+        <div id="devFields" style="display:none">
+          <input id="suSkills" type="text" placeholder="Skills (e.g. React, Node, Bots)" />
+          <input id="suPortfolio" type="text" placeholder="Portfolio link (Behance/GitHub)" />
+        </div>
+
+        <button class="cta-btn primary" id="signUpBtn" type="button" data-i18n="acc.signupBtn">Create account</button>
+        <p class="muted" data-i18n="acc.suNote">After sign up you can track orders or apply for work.</p>
+      </div>
+
+      <!-- DASHBOARD -->
+      <div class="tab-panel" data-panel="dashboard">
+        <div class="dash-head">
+          <div>
+            <h3 id="dashHello">Hello</h3>
+            <p class="muted" id="dashRole"></p>
+          </div>
+          <button class="cta-btn secondary" id="logoutBtn" type="button" data-i18n="acc.logout">Log out</button>
+        </div>
+
+        <div id="clientDash" style="display:none">
+          <h4 data-i18n="dash.clientOrders">My Orders</h4>
+          <div class="dash-list" id="clientOrdersList"></div>
+        </div>
+
+        <div id="devDash" style="display:none">
+          <h4 data-i18n="dash.devPortfolio">My Portfolio</h4>
+          <div class="dash-box" id="devProfileBox"></div>
+
+          <h4 data-i18n="dash.devNew">New Orders</h4>
+          <div class="dash-list" id="devNewOrders"></div>
+
+          <h4 data-i18n="dash.devDone">Completed</h4>
+          <div class="dash-list" id="devDoneOrders"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
