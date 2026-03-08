@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>DEWEB — Pay</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="details-body">
+
+  <nav class="navbar navbar-details">
+    <div class="logo">D</div>
+    <ul class="nav-links">
+      <li><a href="index.html" id="backToDeweb">← Back to DEWEB</a></li>
+      <li><a href="cart.html" id="backToCart">Cart</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-dd" id="langDD">
+        <button class="lang-dd__btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-dd__label" id="langLabel">EN</span>
+          <span class="lang-dd__arrow" aria-hidden="true">‹</span>
+        </button>
+        <div class="lang-dd__menu" id="langMenu" role="listbox" aria-label="Language"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="details-page">
+    <section class="cart-section payment-page-section">
+      <h2 class="cart-page-title" id="paymentTitle">Pay</h2>
+      <div class="payment-summary" id="paymentSummary"></div>
+
+      <div class="payment-section" id="paymentSection">
+        <h4 id="payWithLabel">Pay with</h4>
+        <div class="payment-tabs">
+          <button type="button" class="payment-tab active" data-method="card" id="payCard">Card</button>
+          <button type="button" class="payment-tab" data-method="crypto" id="payCrypto">Crypto</button>
+          <button type="button" class="payment-tab" data-method="bank" id="payBank">Bank transfer</button>
+        </div>
+
+        <div class="payment-method" data-panel="card" id="panelCard">
+          <div class="saved-cards-wrap" id="savedCardsWrap" style="display: none;">
+            <label for="savedCardSelect">Use saved card</label>
+            <select id="savedCardSelect" class="payment-method-input">
+              <option value="">— Select —</option>
+            </select>
+            <p class="payment-method-hint">Or enter new card below.</p>
+          </div>
+          <div class="payment-card-form" id="cardFormWrap">
+            <label for="cardNumber">Card number</label>
+            <input type="text" id="cardNumber" placeholder="4242 4242 4242 4242" maxlength="19" autocomplete="cc-number" />
+            <div class="payment-row">
+              <div>
+                <label for="cardExpiry">Expiry (MM/YY)</label>
+                <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp" />
+              </div>
+              <div>
+                <label for="cardCvc">CVC</label>
+                <input type="text" id="cardCvc" placeholder="123" maxlength="4" autocomplete="cc-csc" />
+              </div>
+            </div>
+            <label for="cardName">Name on card</label>
+            <input type="text" id="cardName" placeholder="Name" autocomplete="cc-name" />
+            <label class="payment-checkbox-wrap">
+              <input type="checkbox" id="saveCardCheck" />
+              <span id="saveCardLabel">Save card to my account</span>
+            </label>
+          </div>
+          <button type="button" class="cta-btn primary" id="payCardBtn">Pay now</button>
+        </div>
+
+        <div class="payment-method" data-panel="crypto" id="panelCrypto" style="display: none;">
+          <label for="cryptoWallet">Wallet address</label>
+          <input type="text" id="cryptoWallet" placeholder="0x..." />
+          <label for="cryptoNetwork">Network (optional)</label>
+          <input type="text" id="cryptoNetwork" placeholder="e.g. Ethereum" />
+          <button type="button" class="cta-btn primary" id="payCryptoBtn">Pay now</button>
+        </div>
+
+        <div class="payment-method" data-panel="bank" id="panelBank" style="display: none;">
+          <label for="bankReference">Payment reference / Order ID</label>
+          <input type="text" id="bankReference" placeholder="Your order reference" />
+          <p class="payment-method-hint">We will send bank details and amount to your email after you confirm.</p>
+          <button type="button" class="cta-btn primary" id="payBankBtn">Pay now</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="payment.js"></script>
+</body>
+</html>

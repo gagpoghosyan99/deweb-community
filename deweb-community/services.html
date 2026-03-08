@@ -33,9 +33,7 @@
 
     <section class="details-list" id="detailsGrid"></section>
 
-    <section class="cart-section" id="cartSection">
-      <h3 id="cartTitle">Your cart</h3>
-
+    <section class="offer-buy-section" id="offerBuySection">
       <div class="cart-offer-buy-row">
         <div class="cart-offer-col">
           <h4 id="offerTitle">Offer your price</h4>
@@ -56,7 +54,7 @@
           </form>
         </div>
         <div class="cart-buy-col">
-          <h4 id="buyTitle">Buy</h4>
+          <h4 id="buyTitle">Buy / Order</h4>
           <div class="buy-selected" id="buySelected">
             <div class="buy-selected-name" id="buySelectedName">Select a service above</div>
             <div class="buy-selected-price" id="buySelectedPrice">—</div>
@@ -69,44 +67,6 @@
             </div>
             <button type="button" class="cta-btn secondary" id="payDirectBtn">Pay</button>
           </div>
-        </div>
-      </div>
-
-      <div class="cart-manage-section" id="cartManageSection">
-        <h4 id="cartItemsTitle">Items in cart</h4>
-        <div class="cart-list" id="cartList"></div>
-        <div class="cart-checkout-wrap">
-          <button type="button" class="cta-btn primary" id="checkoutBtn">Checkout</button>
-        </div>
-      </div>
-
-      <div class="payment-section" id="paymentSection">
-        <h4 id="payWithLabel">Pay with</h4>
-        <div class="payment-tabs">
-          <button type="button" class="payment-tab active" data-method="card"><span id="payCard">Card</span></button>
-          <button type="button" class="payment-tab" data-method="crypto"><span id="payCrypto">Crypto</span></button>
-          <button type="button" class="payment-tab" data-method="bank"><span id="payBank">Bank transfer</span></button>
-        </div>
-        <div class="payment-method payment-method-card" data-panel="card">
-          <label>Card number</label>
-          <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" />
-          <div class="payment-row">
-            <div><label>Expiry</label><input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" /></div>
-            <div><label>CVC</label><input type="text" id="cardCvc" placeholder="123" maxlength="4" /></div>
-          </div>
-          <label>Name on card</label>
-          <input type="text" id="cardName" placeholder="Full name" />
-          <button type="button" class="cta-btn primary" id="payCardBtn">Pay now</button>
-        </div>
-        <div class="payment-method payment-method-crypto" data-panel="crypto" style="display:none">
-          <label>Wallet address / Payment details</label>
-          <input type="text" id="cryptoWallet" placeholder="Your wallet address or payment ID" />
-          <button type="button" class="cta-btn primary" id="payCryptoBtn">Pay now</button>
-        </div>
-        <div class="payment-method payment-method-bank" data-panel="bank" style="display:none">
-          <label>Bank details / Reference</label>
-          <textarea id="bankDetails" rows="3" placeholder="Account number, bank name, or payment reference"></textarea>
-          <button type="button" class="cta-btn primary" id="payBankBtn">Pay now</button>
         </div>
       </div>
     </section>

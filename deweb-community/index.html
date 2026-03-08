@@ -35,7 +35,7 @@
   </div>
 </div>
 
-      <button class="account-btn" id="openAccountBtn" type="button" data-i18n="nav.account">Account</button>
+      <a href="account.html" class="account-btn" id="openAccountBtn" data-i18n="nav.account">Account</a>
     </div>
   </nav>
 
@@ -203,7 +203,7 @@
                 <li data-i18n="order.how3">Developers can claim tasks (Marketplace)</li>
               </ul>
 
-              <button class="cta-btn secondary" id="openAccountFromOrder" type="button" data-i18n="order.openAccount">Open Account</button>
+              <a href="account.html" class="cta-btn secondary" id="openAccountFromOrder" data-i18n="order.openAccount">Open Account</a>
             </div>
           </div>
 
@@ -278,7 +278,7 @@
             <div class="market-hint">
               <span class="badge" data-i18n="market.tipBadge">Tip</span>
               <p data-i18n="market.tipText">Developers: sign up → role “Developer” → add portfolio → claim orders in dashboard.</p>
-              <button class="cta-btn secondary" id="openAccountFromMarket" type="button" data-i18n="market.openAccount">Open Account</button>
+              <a href="account.html" class="cta-btn secondary" id="openAccountFromMarket" data-i18n="market.openAccount">Open Account</a>
             </div>
           </aside>
 
@@ -408,100 +408,6 @@
 
   <!-- DOTS -->
   <div class="pagination" id="pagination"></div>
-
-  <!-- ACCOUNT MODAL -->
-  <div class="modal" id="accountModal" aria-hidden="true">
-    <div class="modal-card">
-      <button class="modal-close" id="closeAccountBtn" aria-label="Close">✕</button>
-
-      <div class="tabs">
-        <button class="tab active" data-tab="signin" data-i18n="acc.signin">Sign in</button>
-        <button class="tab" data-tab="signup" data-i18n="acc.signup">Sign up</button>
-        <button class="tab" data-tab="dashboard" id="dashTab" style="display:none" data-i18n="acc.dashboard">Dashboard</button>
-      </div>
-
-      <!-- SIGN IN -->
-      <div class="tab-panel active" data-panel="signin">
-        <input id="siEmail" type="email" placeholder="Email" />
-        <input id="siPass" type="password" placeholder="Password" />
-        <button class="cta-btn primary" id="signInBtn" type="button" data-i18n="acc.signinBtn">Sign in</button>
-        <p class="muted" data-i18n="acc.siNote">Use sign up if you don't have an account.</p>
-      </div>
-
-      <!-- SIGN UP -->
-      <div class="tab-panel" data-panel="signup">
-        <div class="role-pick">
-          <label><input type="radio" name="role" value="client" checked /> <span data-i18n="acc.roleClient">Client</span></label>
-          <label><input type="radio" name="role" value="dev" /> <span data-i18n="acc.roleDev">Developer</span></label>
-        </div>
-
-        <input id="suName" type="text" placeholder="Full name" />
-        <input id="suEmail" type="email" placeholder="Email" />
-        <input id="suPass" type="password" placeholder="Password" />
-
-        <div id="clientFields">
-          <input id="suPhone" type="text" placeholder="Phone / Telegram" />
-          <input id="suCompany" type="text" placeholder="Company (optional)" />
-        </div>
-
-        <div id="devFields" style="display:none">
-          <input id="suSkills" type="text" placeholder="Skills (e.g. React, Node, Bots)" />
-          <input id="suPortfolio" type="text" placeholder="Portfolio link (Behance/GitHub)" />
-        </div>
-
-        <button class="cta-btn primary" id="signUpBtn" type="button" data-i18n="acc.signupBtn">Create account</button>
-        <p class="muted" data-i18n="acc.suNote">After sign up you can track orders or apply for work.</p>
-      </div>
-
-      <!-- DASHBOARD (professional client / dev view) -->
-      <div class="tab-panel tab-panel-dash" data-panel="dashboard">
-        <header class="dash-pro-header">
-          <div class="dash-pro-welcome">
-            <h2 class="dash-pro-title" id="dashHello">Hello</h2>
-            <span class="dash-pro-role" id="dashRole"></span>
-          </div>
-          <button class="cta-btn secondary dash-pro-logout" id="logoutBtn" type="button" data-i18n="acc.logout">Log out</button>
-        </header>
-
-        <div id="clientDash" class="dash-pro-client" style="display:none">
-          <div class="dash-pro-stats" id="clientDashStats"></div>
-          <section class="dash-pro-section">
-            <h3 class="dash-pro-section-title" data-i18n="dash.clientOrders">My Orders</h3>
-            <div class="dash-pro-table-wrap">
-              <table class="dash-pro-table" aria-label="Orders">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Service</th>
-                    <th>Budget</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody id="clientOrdersList"></tbody>
-              </table>
-            </div>
-            <div class="dash-list dash-pro-fallback" id="clientOrdersListFallback" style="display:none"></div>
-          </section>
-        </div>
-
-        <div id="devDash" class="dash-pro-dev" style="display:none">
-          <section class="dash-pro-section">
-            <h3 class="dash-pro-section-title" data-i18n="dash.devPortfolio">My Portfolio</h3>
-            <div class="dash-pro-card" id="devProfileBox"></div>
-          </section>
-          <section class="dash-pro-section">
-            <h3 class="dash-pro-section-title" data-i18n="dash.devNew">New Orders</h3>
-            <div class="dash-list" id="devNewOrders"></div>
-          </section>
-          <section class="dash-pro-section">
-            <h3 class="dash-pro-section-title" data-i18n="dash.devDone">Completed</h3>
-            <div class="dash-list" id="devDoneOrders"></div>
-          </section>
-        </div>
-      </div>
-
-    </div>
-  </div>
 
   <script src="script.js"></script>
 </body>

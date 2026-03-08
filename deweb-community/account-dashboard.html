@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>DEWEB — Account</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="details-body account-dashboard-body">
+
+  <header class="account-dashboard-header">
+    <nav class="navbar navbar-dashboard">
+      <div class="logo">D</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="index.html">Packages</a></li>
+        <li><a href="index.html">Order</a></li>
+        <li><a href="index.html">Marketplace</a></li>
+        <li><a href="index.html">About</a></li>
+        <li><a href="index.html" class="contact-pill">Contact</a></li>
+      </ul>
+      <div class="nav-right nav-right-dashboard">
+        <span class="nav-util" id="helpCenter">Help Center</span>
+        <button type="button" class="nav-icon-btn" aria-label="Notifications">🔔</button>
+        <button type="button" class="nav-icon-btn" aria-label="Menu">▦</button>
+        <a href="account-dashboard.html" class="nav-avatar" id="navAvatar">GP</a>
+        <a href="cart.html" class="nav-icon-btn" aria-label="Cart">🛒</a>
+        <div class="lang-dd" id="langDD">
+          <button class="lang-dd__btn" id="langBtn" type="button">
+            <span class="lang-dd__label" id="langLabel">EN</span>
+            <span class="lang-dd__arrow">‹</span>
+          </button>
+          <div class="lang-dd__menu" id="langMenu" role="listbox"></div>
+        </div>
+        <a href="account-dashboard.html" class="account-btn" id="accountBtn">Account</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="account-dashboard-wrap">
+    <aside class="account-dashboard-sidebar">
+      <div class="sidebar-section">
+        <h3 class="sidebar-title"><a href="#products" class="sidebar-link sidebar-link--section" data-section="products">My Products</a></h3>
+      </div>
+      <div class="sidebar-section">
+        <h3 class="sidebar-title">Account Settings</h3>
+        <ul class="sidebar-nav">
+          <li><a href="#profile" class="sidebar-link active" data-section="profile">My Profile</a></li>
+          <li><a href="#renewals" class="sidebar-link" data-section="renewals">Renewals & Billing</a></li>
+          <li><a href="#payment-methods" class="sidebar-link" data-section="payment-methods">Payment Methods</a></li>
+          <li><a href="#order-history" class="sidebar-link" data-section="order-history">Order History</a></li>
+          <li><a href="#security" class="sidebar-link" data-section="security">Security</a></li>
+          <li><a href="#delegate" class="sidebar-link" data-section="delegate">Delegate Access</a></li>
+          <li><a href="#domain-defaults" class="sidebar-link" data-section="domain-defaults">Domain Defaults</a></li>
+          <li><a href="#contact-prefs" class="sidebar-link" data-section="contact-prefs">Contact Preferences</a></li>
+          <li><a href="#payees" class="sidebar-link" data-section="payees">Payees</a></li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="account-dashboard-main">
+      <div id="dashboardContent">
+        <!-- Section: My Profile -->
+        <section id="section-profile" class="dashboard-section active">
+          <h1 class="dashboard-page-title">My Profile</h1>
+          <div class="profile-cards">
+            <div class="profile-row" data-field="name">
+              <span class="profile-row__icon">👤</span>
+              <div class="profile-row__content">
+                <span class="profile-row__label">Full Name</span>
+                <span class="profile-row__value" id="profileName">—</span>
+                <input type="text" class="profile-row__input" id="editName" style="display:none" />
+              </div>
+              <span class="profile-row__arrow">›</span>
+            </div>
+            <div class="profile-row" data-field="address">
+              <span class="profile-row__icon">📍</span>
+              <div class="profile-row__content">
+                <span class="profile-row__label">Address</span>
+                <span class="profile-row__value" id="profileAddress">—</span>
+                <input type="text" class="profile-row__input" id="editAddress" style="display:none" />
+              </div>
+              <span class="profile-row__arrow">›</span>
+            </div>
+            <div class="profile-row" data-field="organization">
+              <span class="profile-row__icon">💼</span>
+              <div class="profile-row__content">
+                <span class="profile-row__label">Organization</span>
+                <span class="profile-row__value" id="profileOrganization">—</span>
+                <input type="text" class="profile-row__input" id="editOrganization" style="display:none" />
+              </div>
+              <span class="profile-row__arrow">›</span>
+            </div>
+            <div class="profile-row profile-row--verify" data-field="email">
+              <span class="profile-row__icon">✉</span>
+              <div class="profile-row__content">
+                <span class="profile-row__label">Email <span class="profile-badge verified" id="emailVerifiedBadge" style="display:none">VERIFIED</span><button type="button" class="profile-verify-btn" id="verifyEmailBtn" style="display:none">Verify</button></span>
+                <span class="profile-row__value" id="profileEmail">—</span>
+                <input type="email" class="profile-row__input" id="editEmail" style="display:none" />
+              </div>
+              <span class="profile-row__arrow">›</span>
+            </div>
+            <div class="profile-row profile-row--verify" data-field="phone">
+              <span class="profile-row__icon">📱</span>
+              <div class="profile-row__content">
+                <span class="profile-row__label">Primary Mobile Phone <span class="profile-badge verified" id="phoneVerifiedBadge" style="display:none">VERIFIED</span><button type="button" class="profile-verify-btn" id="verifyPhoneBtn" style="display:none">Verify</button></span>
+                <span class="profile-row__value" id="profilePhone">—</span>
+                <input type="tel" class="profile-row__input" id="editPhone" style="display:none" />
+              </div>
+              <span class="profile-row__arrow">›</span>
+            </div>
+            <div class="profile-row" data-field="phone2">
+              <span class="profile-row__icon">📲</span>
+              <div class="profile-row__content">
+                <span class="profile-row__label">Secondary Mobile Phone</span>
+                <span class="profile-row__value" id="profilePhone2">—</span>
+                <input type="tel" class="profile-row__input" id="editPhone2" style="display:none" />
+              </div>
+              <span class="profile-row__arrow">›</span>
+            </div>
+            <div class="profile-row" data-field="homePhone">
+              <span class="profile-row__icon">🏠</span>
+              <div class="profile-row__content">
+                <span class="profile-row__label">Home Phone</span>
+                <span class="profile-row__value" id="profileHomePhone">—</span>
+                <input type="tel" class="profile-row__input" id="editHomePhone" style="display:none" />
+              </div>
+              <span class="profile-row__arrow">›</span>
+            </div>
+            <div class="profile-row" data-field="currency">
+              <span class="profile-row__icon">💰</span>
+              <div class="profile-row__content">
+                <span class="profile-row__label">Default Currency</span>
+                <span class="profile-row__value" id="profileCurrency">USD</span>
+                <select class="profile-row__input" id="editCurrency" style="display:none"><option value="USD">USD</option><option value="EUR">EUR</option><option value="AMD">AMD</option></select>
+              </div>
+              <span class="profile-row__arrow">›</span>
+            </div>
+          </div>
+          <div class="dashboard-actions dashboard-actions--profile">
+            <button type="button" class="cta-btn primary" id="profileSaveBtn" style="display:none">Save</button>
+            <a href="index.html" class="cta-btn secondary">Go to Home</a>
+            <button type="button" class="cta-btn secondary" id="logoutBtn">Log out</button>
+          </div>
+        </section>
+
+        <!-- Other sections rendered by JS -->
+        <section id="section-products" class="dashboard-section"></section>
+        <section id="section-renewals" class="dashboard-section"></section>
+        <section id="section-payment-methods" class="dashboard-section"></section>
+        <section id="section-order-history" class="dashboard-section"></section>
+        <section id="section-security" class="dashboard-section"></section>
+        <section id="section-delegate" class="dashboard-section"></section>
+        <section id="section-domain-defaults" class="dashboard-section"></section>
+        <section id="section-contact-prefs" class="dashboard-section"></section>
+        <section id="section-payees" class="dashboard-section"></section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Verification modal -->
+  <div class="dashboard-modal" id="verifyModal" aria-hidden="true">
+    <div class="dashboard-modal__card">
+      <button type="button" class="dashboard-modal__close" id="verifyModalClose">✕</button>
+      <h3 class="dashboard-modal__title" id="verifyModalTitle">Verify Email</h3>
+      <p class="dashboard-modal__desc" id="verifyModalDesc">We'll send a 6-digit code to your email. Enter it below.</p>
+      <div id="verifyStepSend">
+        <button type="button" class="cta-btn primary" id="verifySendCodeBtn">Send code</button>
+      </div>
+      <div id="verifyStepEnter" style="display:none">
+        <label class="dashboard-modal__label">Enter 6-digit code</label>
+        <input type="text" id="verifyCodeInput" maxlength="6" placeholder="000000" class="dashboard-modal__input" />
+        <button type="button" class="cta-btn primary" id="verifyConfirmBtn">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="account-dashboard-footer">
+    <div class="account-page__pagination">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      <span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+    </div>
+  </footer>
+
+  <script src="account-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>DEWEB — Sign in</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="details-body account-page-body">
+
+  <nav class="navbar navbar-account">
+    <div class="logo">D</div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="index.html">Packages</a></li>
+      <li><a href="index.html">Order</a></li>
+      <li><a href="index.html">Marketplace</a></li>
+      <li><a href="index.html">About</a></li>
+      <li><a href="index.html" class="contact-pill">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-dd" id="langDD">
+        <button class="lang-dd__btn" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <span class="lang-dd__label" id="langLabel">EN</span>
+          <span class="lang-dd__arrow" aria-hidden="true">‹</span>
+        </button>
+        <div class="lang-dd__menu" id="langMenu" role="listbox" aria-label="Language"></div>
+      </div>
+      <a href="account.html" class="account-btn">Account</a>
+    </div>
+  </nav>
+
+  <main class="account-page">
+    <div class="account-page__left">
+      <!-- Sign In left content -->
+      <div class="account-page__hero account-page__hero--signin" id="heroSignIn">
+        <h1 class="account-page__headline">Welcome Back</h1>
+        <p class="account-page__sub">Sign in and get back to building.</p>
+        <ul class="account-page__benefits account-page__benefits--plain">
+          <li>Secure and fast access</li>
+          <li>Full control of your workspace</li>
+          <li>Everything you need to build online</li>
+        </ul>
+      </div>
+      <!-- Sign Up left content -->
+      <div class="account-page__hero account-page__hero--signup" id="heroSignUp" style="display: none;">
+        <h1 class="account-page__headline account-page__headline--accent">Create Your Account</h1>
+        <p class="account-page__sub">Create your account and start building today.</p>
+        <ul class="account-page__benefits account-page__benefits--plain">
+          <li>Launch projects faster</li>
+          <li>Build secure, scalable solutions</li>
+          <li>Manage everything in one workspace</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="account-page__right">
+      <div class="account-page__card">
+        <div class="account-page__card-header">
+          <h2 id="accountFormTitle" class="account-page__card-title">Sign In</h2>
+          <div class="account-page__brand-pill">
+            <span class="account-page__brand-logo">D</span>
+            <span class="account-page__brand-text">DEWEB</span>
+          </div>
+        </div>
+
+        <!-- Sign In form -->
+        <div class="account-page__panel active" data-panel="signin" role="tabpanel">
+          <label class="account-page__label" for="siUsername">Username</label>
+          <input id="siUsername" type="text" placeholder="Username" class="account-page__input" autocomplete="username" />
+          <label class="account-page__label" for="siPass">Password</label>
+          <div class="account-page__input-wrap">
+            <input id="siPass" type="password" placeholder="••••••••" class="account-page__input" autocomplete="current-password" />
+            <button type="button" class="account-page__toggle-pwd" id="toggleSiPass" aria-label="Show password">👁</button>
+          </div>
+          <div class="account-page__forgot-wrap">
+            <a href="#" class="account-page__forgot" id="forgotPass">Forgot password?</a>
+          </div>
+          <button class="account-page__cta" id="signInBtn" type="button">Sign In</button>
+          <p class="account-page__switch">Don't have an account? <button type="button" class="account-page__link" id="goSignUp">Sign Up</button></p>
+        </div>
+
+        <!-- Sign Up form -->
+        <div class="account-page__panel" data-panel="signup" role="tabpanel" hidden>
+          <label class="account-page__label" for="suUsername">Username</label>
+          <input id="suUsername" type="text" placeholder="Username" class="account-page__input" autocomplete="username" />
+          <label class="account-page__label" for="suEmail">Email</label>
+          <input id="suEmail" type="email" placeholder="Email" class="account-page__input" autocomplete="email" />
+          <label class="account-page__label" for="suPass">Password</label>
+          <div class="account-page__input-wrap">
+            <input id="suPass" type="password" placeholder="••••••••" class="account-page__input" autocomplete="new-password" />
+            <button type="button" class="account-page__toggle-pwd" id="toggleSuPass" aria-label="Show password">👁</button>
+          </div>
+          <label class="account-page__checkbox">
+            <input type="checkbox" id="suNewsletter" />
+            <span>I want to receive periodic DEWEB newsletters with updates and offers!</span>
+          </label>
+          <button class="account-page__cta" id="signUpBtn" type="button">Sign Up</button>
+          <p class="account-page__switch">Already have an account? <button type="button" class="account-page__link" id="goSignIn">Sign In</button></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="account-page__pagination" aria-hidden="true">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <script src="account.js"></script>
+</body>
+</html>

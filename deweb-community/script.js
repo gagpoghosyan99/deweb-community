@@ -5,6 +5,23 @@
    ======================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Account link: if logged in go to dashboard, else go to sign-in page
+  const openAccountBtn = document.getElementById("openAccountBtn");
+  if (openAccountBtn && openAccountBtn.tagName === "A") {
+    try {
+      const session = JSON.parse(localStorage.getItem("deweb_session") || "null");
+      if (session && session.userId) openAccountBtn.href = "account-dashboard.html";
+    } catch (_) {}
+    openAccountBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const href = openAccountBtn.getAttribute("href");
+      if (href && href !== "#") {
+        const base = window.location.href.replace(/[#?].*$/, "").replace(/[^/]+$/, "");
+        window.location.href = base + href.replace(/^\.\//, "");
+      }
+    });
+  }
+
   const slidesWrapper = document.getElementById("slidesWrapper");
   const pagination = document.getElementById("pagination");
   const navLinks = document.querySelectorAll(".nav-links a");
@@ -202,10 +219,22 @@ document.addEventListener("DOMContentLoaded", () => {
       acc:{
         signin:"Sign in", signup:"Sign up", dashboard:"Dashboard",
         signinBtn:"Sign in", signupBtn:"Create account",
+        orContinueWith:"Or continue with",
+        signInGoogle:"Google", signInApple:"Apple", signInFb:"Facebook",
         roleClient:"Client", roleDev:"Developer",
         siNote:"Use sign up if you don't have an account.",
         suNote:"After sign up you can track orders or apply for work.",
-        logout:"Log out"
+        logout:"Log out",
+        security:"Security & account",
+        password:"Password",
+        passwordDesc:"Change your password or set one if you signed in with a social account.",
+        socialLogin:"Social login",
+        socialLoginDesc:"Manage how you sign in with Google, Apple, or Facebook.",
+        activityLog:"Activity log",
+        activityLogDesc:"Recent sign-ins and account activity.",
+        manage:"Manage",
+        viewActivity:"View activity",
+        signedInWith:"Signed in with"
       },
       dash:{
         clientOrders:"My Orders",
@@ -224,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
       order: { title: "Заказ от 0 до 100%", subtitle: "Оставьте заявку. Ответим с объёмом, ценой, сроками и способами оплаты.", s1: "Заявка", s1d: "вы отправляете детали", s2: "Предложение", s2d: "объём и цена", s3: "Оплата", s3d: "по этапам", s4: "Доставка", s4d: "тест и запуск", howTitle: "Как это в аккаунте", how1: "Статус заказа: Заявка → Предложение → Оплачено → В работе → Доставлено → Готово", how2: "Можно добавить файлы (в полной версии)", how3: "Разработчики могут брать задачи", openAccount: "Открыть аккаунт", service: "Услуга", budget: "Бюджет", deadline: "Срок", details: "Детали проекта", contact: "Контакт", opt: { website: "Сайт / Лендинг / E-commerce", bot: "Telegram-бот / Автоматизация", design: "Дизайн / Брендинг / UI", support: "Поддержка / Рост" }, pay: { card: "Карта", crypto: "Криптовалюта", bank: "Банк", cash: "Наличные" }, send: "Отправить заявку", note: "После отправки заказ появится в аккаунте." },
       market: { title: "Маркетплейс", subtitle: "Нанять специалистов или брать задачи как разработчик.", filters: "Фильтры", all: "Все роли", dev: "Разработчики", skillAll: "Все навыки", tipBadge: "Совет", tipText: "Разработчики: регистрация → роль «Разработчик» → портфолио → заявки в дашборде.", openAccount: "Открыть аккаунт", openOrders: "Открытые заказы", createOrder: "Создать заказ" },
       about: { title: "О DEWEB", base: "DEWEB — IT-студия и маркетплейс. Сайты, автоматизация, боты, дизайн. Проверенные разработчики получают заказы, клиенты — предсказуемый результат.", v1b: "Скорость", v1s: "Быстро без хаоса", v2b: "Ясность", v2s: "Пакеты, объём, этапы", v3b: "Качество", v3s: "Продакшен-уровень", cards: { web: "Веб и E-commerce", bots: "Боты и автоматизация", design: "Дизайн и брендинг", growth: "Рост и поддержка", market: "Маркетплейс", process: "Процесс" } },
-      acc: { signin: "Вход", signup: "Регистрация", dashboard: "Дашборд", signinBtn: "Войти", signupBtn: "Создать аккаунт", roleClient: "Клиент", roleDev: "Разработчик", siNote: "Нет аккаунта? Зарегистрируйтесь.", suNote: "После регистрации можно отслеживать заказы или откликаться на задачи.", logout: "Выйти" },
+      acc: { signin: "Вход", signup: "Регистрация", dashboard: "Дашборд", signinBtn: "Войти", signupBtn: "Создать аккаунт", orContinueWith: "Или войти через", signInGoogle: "Google", signInApple: "Apple", signInFb: "Facebook", roleClient: "Клиент", roleDev: "Разработчик", siNote: "Нет аккаунта? Зарегистрируйтесь.", suNote: "После регистрации можно отслеживать заказы или откликаться на задачи.", logout: "Выйти", security: "Безопасность и аккаунт", password: "Пароль", passwordDesc: "Смените пароль или установите его при входе через соцсеть.", socialLogin: "Вход через соцсети", socialLoginDesc: "Управление входом через Google, Apple или Facebook.", activityLog: "Журнал активности", activityLogDesc: "Последние входы и действия.", manage: "Управление", viewActivity: "Смотреть активность", signedInWith: "Вход через" },
       dash: { clientOrders: "Мои заказы", devPortfolio: "Портфолио", devNew: "Новые заказы", devDone: "Выполнено" },
       contact: { placeholderMessage: "Напишите сообщение...", placeholderEmail: "Ваш e-mail...", sendButton: "ОТПРАВИТЬ" }
     },
@@ -236,7 +265,7 @@ document.addEventListener("DOMContentLoaded", () => {
       order: { title: "Պատվեր 0-ից 100%", subtitle: "Ուղարկեք հարցում։ Կպատասխանենք շրջանակով, գնով, ժամկետներով և վճարման եղանակներով։", s1: "Հարցում", s1d: "դուք ուղարկում եք մանրամասներ", s2: "Առաջարկ", s2d: "շրջանակ և գին", s3: "Վճարում", s3d: "փուլեր", s4: "Առաքում", s4d: "թեստ և մեկնարկ", howTitle: "Ինչպես է աշխատում հաշվում", how1: "Պատվերի կարգավիճակ՝ Հարցում → Առաջարկ → Վճարված → Ընթացքում → Առաքված → Պատրաստ", how2: "Կարող եք ավելացնել ֆայլեր (լրիվ տարբերակում)", how3: "Մշակողները կարող են վերցնել առաջադրանքներ", openAccount: "Բացել հաշիվ", service: "Ծառայություն", budget: "Բյուջե", deadline: "Ժամկետ", details: "Նախագծի մանրամասներ", contact: "Կապ", opt: { website: "Կայք / Լենդինգ / E-commerce", bot: "Telegram բոտ / Ավտոմատացում", design: "Դիզայն / Ապրանքանիշ / UI", support: "Աջակցություն / Աճ" }, pay: { card: "Քարտ", crypto: "Կրիպտո", bank: "Բանկ", cash: "Կանխիկ" }, send: "Ուղարկել հարցում", note: "Ուղարկելուց հետո պատվերը կերևա հաշվի դաշշբորդում։" },
       market: { title: "Մարկետփլեյս", subtitle: "Վարձեք մասնագետներ կամ վերցրեք առաջադրանքներ որպես մշակող։", filters: "Զտիչներ", all: "Բոլոր դերերը", dev: "Մշակողներ", skillAll: "Բոլոր հմտությունները", tipBadge: "Խորհուրդ", tipText: "Մշակողներ՝ գրանցում → «Մշակող» դեր → պորտֆոլիո → առաջադրանքներ դաշշբորդում։", openAccount: "Բացել հաշիվ", openOrders: "Բաց պատվերներ", createOrder: "Ստեղծել պատվեր" },
       about: { title: "DEWEB-ի մասին", base: "DEWEB-ը IT արտադրության ստուդիա և մարկետփլեյս է։ Կայքեր, ավտոմատացում, բոտեր, դիզայն։ Ստուգված մշակողները ստանում են պատվերներ, կլիենտները՝ կանխատեսելի արդյունք։", v1b: "Արագություն", v1s: "Արագ առանց խառնաշփոթի", v2b: "Պարզություն", v2s: "Փաթեթներ, շրջանակ, փուլեր", v3b: "Որակ", v3s: "Արտադրության մակարդակ", cards: { web: "Վեբ և E-commerce", bots: "Բոտեր և ավտոմատացում", design: "Դիզայն և ապրանքանիշ", growth: "Աճ և աջակցություն", market: "Մարկետփլեյս", process: "Գործընթաց" } },
-      acc: { signin: "Մուտք", signup: "Գրանցում", dashboard: "Դաշշբորդ", signinBtn: "Մուտք", signupBtn: "Ստեղծել հաշիվ", roleClient: "Կլիենտ", roleDev: "Մշակող", siNote: "Հաշիվ չունե՞ք։ Գրանցվեք։", suNote: "Գրանցումից հետո կարող եք հետևել պատվերներին կամ արձագանքել առաջադրանքներին։", logout: "Դուրս գալ" },
+      acc: { signin: "Մուտք", signup: "Գրանցում", dashboard: "Դաշշբորդ", signinBtn: "Մուտք", signupBtn: "Ստեղծել հաշիվ", orContinueWith: "Կամ շարունակել через", signInGoogle: "Google", signInApple: "Apple", signInFb: "Facebook", roleClient: "Կլիենտ", roleDev: "Մշակող", siNote: "Հաշիվ չունե՞ք։ Գրանցվեք։", suNote: "Գրանցումից հետո կարող եք հետևել պատվերներին կամ արձագանքել առաջադրանքներին։", logout: "Դուրս գալ", security: "Անվտանգություն և հաշիվ", password: "Գաղտնաբառ", passwordDesc: "Փոխեք գաղտնաբառը կամ սահմանեք, եթե մուտք եք գործել սոցիալական միջոցով։", socialLogin: "Սոցիալական մուտք", socialLoginDesc: "Կառավարեք մուտքը Google, Apple կամ Facebook-ով։", activityLog: "Գործունեության մատյան", activityLogDesc: "Վերջին մուտքերն ու գործողությունները։", manage: "Կառավարել", viewActivity: "Դիտել ակտիվությունը", signedInWith: "Մուտք" },
       dash: { clientOrders: "Իմ պատվերները", devPortfolio: "Պորտֆոլիո", devNew: "Նոր պատվերներ", devDone: "Կատարված" },
       contact: { placeholderMessage: "Գրեք ձեր հաղորդագրությունը...", placeholderEmail: "Ձեր e-mail...", sendButton: "ՈՒՂԱՐԿԵԼ" }
     }
@@ -460,7 +489,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     set(key, value){ localStorage.setItem(key, JSON.stringify(value)); }
   };
-  const DB_KEYS = { users:"deweb_users", session:"deweb_session", orders:"deweb_orders" };
+  const DB_KEYS = { users:"deweb_users", session:"deweb_session", orders:"deweb_orders", activity:"deweb_activity" };
 
   function getSession(){ return LS.get(DB_KEYS.session, null); }
   function setSession(s){ LS.set(DB_KEYS.session, s); }
@@ -468,6 +497,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function getUsers(){ return LS.get(DB_KEYS.users, []); }
   function setUsers(u){ LS.set(DB_KEYS.users, u); }
+
+  function getActivity(){ return LS.get(DB_KEYS.activity, {}); }
+  function setActivity(a){ LS.set(DB_KEYS.activity, a); }
+  function pushActivity(userId, entry){
+    const a = getActivity();
+    if (!a[userId]) a[userId] = [];
+    a[userId].unshift({ at: new Date().toISOString(), ...entry });
+    a[userId] = a[userId].slice(0, 20);
+    setActivity(a);
+  }
 
   function getOrders(){ return LS.get(DB_KEYS.orders, []); }
   function setOrders(o){ LS.set(DB_KEYS.orders, o); }
@@ -479,103 +518,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!s) return null;
     return getUsers().find(u => u.id === s.userId) || null;
   }
-
-  /* =========================
-     Account modal
-     ========================= */
-  const accountModal = document.getElementById("accountModal");
-  const openAccountBtn = document.getElementById("openAccountBtn");
-  const closeAccountBtn = document.getElementById("closeAccountBtn");
-
-  function openModal(){
-    accountModal?.classList.add("show");
-    accountModal?.setAttribute("aria-hidden","false");
-    refreshDashboard();
-  }
-  function closeModal(){
-    accountModal?.classList.remove("show");
-    accountModal?.setAttribute("aria-hidden","true");
-  }
-
-  openAccountBtn?.addEventListener("click", openModal);
-  closeAccountBtn?.addEventListener("click", closeModal);
-  accountModal?.addEventListener("click", (e) => { if (e.target === accountModal) closeModal(); });
-
-  document.getElementById("openAccountFromOrder")?.addEventListener("click", openModal);
-  document.getElementById("openAccountFromMarket")?.addEventListener("click", openModal);
-
-  // Tabs
-  const tabs = document.querySelectorAll(".tab");
-  const panels = document.querySelectorAll(".tab-panel");
-  function setTab(name){
-    tabs.forEach(t => t.classList.toggle("active", t.dataset.tab === name));
-    panels.forEach(p => p.classList.toggle("active", p.dataset.panel === name));
-  }
-  tabs.forEach(t => t.addEventListener("click", () => setTab(t.dataset.tab)));
-
-  // Role toggle
-  const roleRadios = document.querySelectorAll('input[name="role"]');
-  const clientFields = document.getElementById("clientFields");
-  const devFields = document.getElementById("devFields");
-  roleRadios.forEach(r => r.addEventListener("change", () => {
-    const role = document.querySelector('input[name="role"]:checked')?.value;
-    if (clientFields) clientFields.style.display = role === "client" ? "block" : "none";
-    if (devFields) devFields.style.display = role === "dev" ? "block" : "none";
-  }));
-
-  // Sign up
-  document.getElementById("signUpBtn")?.addEventListener("click", () => {
-    const role = document.querySelector('input[name="role"]:checked')?.value || "client";
-    const name = document.getElementById("suName")?.value?.trim() || "";
-    const email = (document.getElementById("suEmail")?.value || "").trim().toLowerCase();
-    const pass = document.getElementById("suPass")?.value || "";
-
-    if (!name || !email || !pass) return alert("Fill required fields.");
-
-    const users = getUsers();
-    if (users.some(u => u.email === email)) return alert("Email already exists.");
-
-    const user = {
-      id: uid(),
-      role,
-      name,
-      email,
-      pass, // prototype only
-      phone: document.getElementById("suPhone")?.value?.trim() || "",
-      company: document.getElementById("suCompany")?.value?.trim() || "",
-      skills: document.getElementById("suSkills")?.value?.trim() || "",
-      portfolio: document.getElementById("suPortfolio")?.value?.trim() || ""
-    };
-
-    users.push(user);
-    setUsers(users);
-    setSession({ userId: user.id });
-
-    document.getElementById("dashTab").style.display = "inline-flex";
-    setTab("dashboard");
-    refreshDashboard();
-  });
-
-  // Sign in
-  document.getElementById("signInBtn")?.addEventListener("click", () => {
-    const email = (document.getElementById("siEmail")?.value || "").trim().toLowerCase();
-    const pass = document.getElementById("siPass")?.value || "";
-    const user = getUsers().find(u => u.email === email && u.pass === pass);
-    if (!user) return alert("Wrong email or password.");
-    setSession({ userId: user.id });
-
-    document.getElementById("dashTab").style.display = "inline-flex";
-    setTab("dashboard");
-    refreshDashboard();
-  });
-
-  // Log out
-  document.getElementById("logoutBtn")?.addEventListener("click", () => {
-    clearSession();
-    document.getElementById("dashTab").style.display = "none";
-    setTab("signin");
-    refreshDashboard();
-  });
 
   /* =========================
      Orders: create inquiry
@@ -624,6 +566,7 @@ document.addEventListener("DOMContentLoaded", () => {
      Dashboard render
      ========================= */
   function refreshDashboard(){
+    if (!document.getElementById("accountModal")) return; // Account is on account.html only
     const me = findMe();
 
     const dashTab = document.getElementById("dashTab");
@@ -643,6 +586,29 @@ document.addEventListener("DOMContentLoaded", () => {
     if (dashTab) dashTab.style.display = "inline-flex";
     if (hello) hello.textContent = `Hello, ${me.name}`;
     if (role) role.textContent = `Role: ${me.role}`;
+
+    // Security: connected providers
+    const linked = me.linkedProviders || [];
+    const badgeGoogle = document.getElementById("badgeGoogle");
+    const badgeApple = document.getElementById("badgeApple");
+    const badgeFb = document.getElementById("badgeFb");
+    if (badgeGoogle) badgeGoogle.style.display = linked.includes("google") ? "inline-block" : "none";
+    if (badgeApple) badgeApple.style.display = linked.includes("apple") ? "inline-block" : "none";
+    if (badgeFb) badgeFb.style.display = linked.includes("fb") ? "inline-block" : "none";
+
+    // Activity log preview
+    const activity = getActivity()[me.id] || [];
+    const preview = document.getElementById("activityLogPreview");
+    const dict = I18N[currentLang] || I18N.en;
+    const signedInWith = dict.acc?.signedInWith || "Signed in with";
+    if (preview) {
+      if (activity.length === 0) preview.innerHTML = `<span class="muted">No recent activity.</span>`;
+      else preview.innerHTML = activity.slice(0, 3).map(e => {
+        const d = e.at ? new Date(e.at).toLocaleString(undefined, { dateStyle: "short", timeStyle: "short" }) : "";
+        const p = e.provider ? ` ${signedInWith} ${e.provider}` : "";
+        return `<div class="activity-entry">${p || "Sign in"} — ${d}</div>`;
+      }).join("");
+    }
 
     if (me.role === "client"){
       if (clientDash) clientDash.style.display = "block";
@@ -941,6 +907,8 @@ document.addEventListener("DOMContentLoaded", () => {
   renderMarketplace();
   renderOpenOrders();
   refreshDashboard();
+
+  if (window.location.hash === "#account") window.location.href = "account.html";
 
   goToSlide(0);
 });

@@ -47,6 +47,7 @@ const I18N = {
     payBank: "Bank transfer",
     successSent: "Sent! We will contact you soon.",
     fillRequired: "Please fill message and email.",
+    selectServiceFirst: "Please select a service above first (click \"Buy or Offer your price\" on a service).",
   },
   ru: {
     backToDeweb: "← Назад в DEWEB",
@@ -83,6 +84,7 @@ const I18N = {
     payBank: "Банковский перевод",
     successSent: "Отправлено! Мы скоро свяжемся с вами.",
     fillRequired: "Заполните сообщение и email.",
+    selectServiceFirst: "Сначала выберите услугу выше (нажмите «Купить или предложить цену»).",
   },
   hy: {
     backToDeweb: "← Հետ DEWEB",
@@ -119,6 +121,7 @@ const I18N = {
     payBank: "Բանկային փոխանցում",
     successSent: "Ուղարկված է։ Շուտով կկապվենք։",
     fillRequired: "Խնդրում ենք լրացնել հաղորդագրությունն ու email-ը։",
+    selectServiceFirst: "Նախ ընտրեք ծառայություն (սեղմեք «Գնել կամ առաջարկել գին»):",
   },
 };
 
@@ -279,29 +282,11 @@ function applyPageI18n() {
   if (promoLabel) promoLabel.textContent = t("promocode");
   const promoCodeInput = document.getElementById("promoCode");
   if (promoCodeInput) promoCodeInput.placeholder = t("promoPlaceholder");
-  const cartItemsTitle = document.getElementById("cartItemsTitle");
-  if (cartItemsTitle) cartItemsTitle.textContent = t("itemsInCart");
   const addToCartBtn = document.getElementById("addToCartBtn");
   if (addToCartBtn) addToCartBtn.textContent = t("addToCart");
   const payDirectBtn = document.getElementById("payDirectBtn");
   if (payDirectBtn) payDirectBtn.textContent = t("payBtn");
-  const cartTitle = document.getElementById("cartTitle");
-  if (cartTitle) cartTitle.textContent = t("yourCart");
-  const checkoutBtnEl = document.getElementById("checkoutBtn");
-  if (checkoutBtnEl) checkoutBtnEl.textContent = t("checkout");
   updateOfferAndBuy();
-  const payWithLabel = document.getElementById("payWithLabel");
-  if (payWithLabel) payWithLabel.textContent = t("payWith");
-  ["payCardBtn", "payCryptoBtn", "payBankBtn"].forEach((id) => {
-    const btn = document.getElementById(id);
-    if (btn) btn.textContent = t("payNow");
-  });
-  const payCardEl = document.getElementById("payCard");
-  if (payCardEl) payCardEl.textContent = t("payCard");
-  const payCryptoEl = document.getElementById("payCrypto");
-  if (payCryptoEl) payCryptoEl.textContent = t("payCrypto");
-  const payBankEl = document.getElementById("payBank");
-  if (payBankEl) payBankEl.textContent = t("payBank");
 }
 
 function getCat() {
@@ -311,29 +296,7 @@ function getCat() {
 }
 
 function renderCart() {
-  const list = document.getElementById("cartList");
-  const manageSection = document.getElementById("cartManageSection");
-  if (!list) return;
-  if (cart.length === 0) {
-    if (manageSection) manageSection.classList.remove("is-visible");
-    list.innerHTML = "";
-    return;
-  }
-  if (manageSection) manageSection.classList.add("is-visible");
-  list.innerHTML = cart.map((item, i) => `
-    <div class="cart-item" data-i="${i}">
-      <span class="cart-item-name">${escapeHtml(item.name)}</span>
-      <span class="cart-item-qty">× ${item.qty}</span>
-      <span class="cart-item-price">${item.price}</span>
-      <button type="button" class="cart-item-remove" data-i="${i}" aria-label="Remove">×</button>
-    </div>
-  `).join("");
-  list.querySelectorAll(".cart-item-remove").forEach(btn => {
-    btn.addEventListener("click", () => {
-      cart.splice(Number(btn.dataset.i), 1);
-      saveCart();
-    });
-  });
+  // Cart list and payment live on cart.html and payment.html; here we only persist to sessionStorage.
 }
 
 function escapeHtml(s) {
@@ -424,7 +387,7 @@ function renderPage() {
     row.querySelector("[data-offer]").addEventListener("click", () => {
       selectedProduct = { cat, index: idx };
       updateOfferAndBuy();
-      document.getElementById("cartSection")?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById("offerBuySection")?.scrollIntoView({ behavior: "smooth" });
       document.getElementById("offerText")?.focus();
     });
     grid.appendChild(row);
@@ -446,14 +409,37 @@ document.getElementById("offerForm")?.addEventListener("submit", (e) => {
 document.getElementById("promoCode")?.addEventListener("input", updateOfferAndBuy);
 document.getElementById("promoCode")?.addEventListener("change", updateOfferAndBuy);
 
+function sameDirUrl(file) {
+  const href = window.location.href;
+  const lastSlash = href.lastIndexOf("/");
+  const base = lastSlash >= 0 ? href.slice(0, lastSlash + 1) : "";
+  return base + file;
+}
+
+function goToCart() {
+  const url = sameDirUrl("cart.html");
+  if (window.top !== window.self) window.top.location.href = url;
+  else window.location.href = url;
+}
+
+function goToPayment() {
+  const url = sameDirUrl("payment.html");
+  if (window.top !== window.self) window.top.location.href = url;
+  else window.location.href = url;
+}
+
 document.getElementById("addToCartBtn")?.addEventListener("click", () => {
   const it = getSelectedProductData();
-  if (!it) return;
+  if (!it) {
+    alert(t("selectServiceFirst"));
+    document.getElementById("offerBuySection")?.scrollIntoView({ behavior: "smooth" });
+    return;
+  }
   const name = getText(it.name);
   const price = getSelectedPrice();
   cart.push({ name, price, qty: 1, cat: selectedProduct.cat, productIndex: selectedProduct.index });
   saveCart();
-  document.getElementById("cartManageSection")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  goToCart();
 });
 
 document.getElementById("payDirectBtn")?.addEventListener("click", () => {
@@ -468,32 +454,8 @@ document.getElementById("payDirectBtn")?.addEventListener("click", () => {
     });
     saveCart();
   }
-  showPaymentSection();
+  goToPayment();
 });
-
-document.getElementById("checkoutBtn")?.addEventListener("click", showPaymentSection);
-
-// Payment method tabs
-document.querySelectorAll(".payment-tab").forEach((tab) => {
-  tab.addEventListener("click", () => {
-    const method = tab.dataset.method;
-    document.querySelectorAll(".payment-tab").forEach((t) => t.classList.toggle("active", t.dataset.method === method));
-    document.querySelectorAll(".payment-method").forEach((p) => {
-      p.style.display = p.dataset.panel === method ? "block" : "none";
-    });
-  });
-});
-
-function doPay() {
-  alert(t("successSent"));
-  cart = [];
-  saveCart();
-  document.getElementById("cartManageSection")?.classList.remove("is-visible");
-}
-
-document.getElementById("payCardBtn")?.addEventListener("click", doPay);
-document.getElementById("payCryptoBtn")?.addEventListener("click", doPay);
-document.getElementById("payBankBtn")?.addEventListener("click", doPay);
 
 // Init
 loadCart();

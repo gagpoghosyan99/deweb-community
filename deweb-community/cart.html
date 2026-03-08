@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>DEWEB — Your cart</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="details-body">
+
+  <nav class="navbar navbar-details">
+    <div class="logo">D</div>
+    <ul class="nav-links">
+      <li><a href="index.html" id="backToDeweb">← Back to DEWEB</a></li>
+      <li><a href="services.html" id="backToServices">Services</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-dd" id="langDD">
+        <button class="lang-dd__btn" id="langBtn" type="button" aria-haspopop="listbox" aria-expanded="false">
+          <span class="lang-dd__label" id="langLabel">EN</span>
+          <span class="lang-dd__arrow" aria-hidden="true">‹</span>
+        </button>
+        <div class="lang-dd__menu" id="langMenu" role="listbox" aria-label="Language"></div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="details-page">
+    <section class="cart-section cart-page-section">
+      <h2 class="cart-page-title" id="cartPageTitle">Your cart</h2>
+      <div class="cart-list-wrap">
+        <div id="cartList" class="cart-list"></div>
+        <p class="cart-empty" id="cartEmpty" style="display: none;">Your cart is empty.</p>
+      </div>
+      <div class="cart-footer" id="cartFooter" style="display: none;">
+        <div class="cart-total" id="cartTotal"></div>
+        <div class="cart-actions">
+          <a href="services.html" class="cta-btn secondary" id="continueShopping">Continue shopping</a>
+          <button type="button" class="cta-btn primary" id="payBtn">Pay</button>
+        </div>
+      </div>
+      <div class="cart-actions cart-actions-single" id="emptyActions" style="display: none;">
+        <a href="services.html" class="cta-btn primary" id="continueShoppingEmpty">Continue shopping</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="cart.js"></script>
+</body>
+</html>
