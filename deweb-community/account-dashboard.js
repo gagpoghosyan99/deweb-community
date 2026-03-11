@@ -53,7 +53,7 @@ if (!me) {
   window.location.href = "account.html";
 }
 
-// ——— Section switching ———
+// ——— Section switching with browser history ———
 const sections = [
   "profile", "products", "renewals", "payment-methods", "order-history",
   "security", "delegate", "domain-defaults", "contact-prefs", "payees"
@@ -71,7 +71,12 @@ const sectionTitles = {
   payees: "Payees"
 };
 
-function setActiveSection(id) {
+let currentSection = "profile";
+
+function setActiveSection(id, pushHistory = true) {
+  if (!sections.includes(id)) id = "profile";
+  currentSection = id;
+  
   sections.forEach(sid => {
     const el = document.getElementById("section-" + sid);
     if (el) el.classList.toggle("active", sid === id);
@@ -80,6 +85,40 @@ function setActiveSection(id) {
     a.classList.toggle("active", a.getAttribute("data-section") === id);
   });
   if (id !== "profile") renderSectionContent(id);
+  
+  // Update browser history (pushState) so back button works
+  if (pushHistory) {
+    const url = new URL(window.location);
+    url.hash = id;
+    history.pushState({ section: id }, sectionTitles[id], url);
+  }
+}
+
+// Handle browser back/forward buttons
+window.addEventListener("popstate", (e) => {
+  if (e.state && e.state.section) {
+    setActiveSection(e.state.section, false);
+  } else {
+    // Check hash as fallback
+    const hash = window.location.hash.replace("#", "");
+    if (hash && sections.includes(hash)) {
+      setActiveSection(hash, false);
+    } else {
+      setActiveSection("profile", false);
+    }
+  }
+});
+
+// On page load, check hash for initial section
+function initSectionFromHash() {
+  const hash = window.location.hash.replace("#", "");
+  if (hash && sections.includes(hash)) {
+    // Replace current state so first back goes to previous page
+    history.replaceState({ section: hash }, sectionTitles[hash], window.location.href);
+    setActiveSection(hash, false);
+  } else {
+    history.replaceState({ section: "profile" }, sectionTitles["profile"], window.location.href);
+  }
 }
 
 function renderSectionContent(id) {
@@ -338,7 +377,9 @@ document.querySelectorAll(".sidebar-link[data-section]").forEach(a => {
   a.addEventListener("click", (e) => {
     e.preventDefault();
     const id = a.getAttribute("data-section");
-    if (id) setActiveSection(id);
+    if (id && id !== currentSection) {
+      setActiveSection(id, true); // true = push to history
+    }
   });
 });
 
@@ -586,6 +627,7 @@ document.addEventListener("click", (e) => {
 // ——— Init ———
 fillProfile();
 document.getElementById("navAvatar").textContent = getInitials(findMe()?.name);
+initSectionFromHash(); // Set initial section from URL hash
 
 document.getElementById("logoutBtn")?.addEventListener("click", () => {
   clearSession();
