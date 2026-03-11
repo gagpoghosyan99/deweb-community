@@ -22,6 +22,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -2005,11 +2006,21 @@ body::before {
   display: flex;
   flex-direction: column;
   background: linear-gradient(180deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+  margin: 0;
+  padding: 0;
+}
+
+.account-dashboard-body {
+  background: var(--primary-bg) !important;
+}
+
+.account-dashboard-body::before {
+  display: none !important;
 }
 
 .account-dashboard-header {
   background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
-  padding: 14px 0;
+  padding: 12px 24px;
   position: fixed;
   top: 0;
   left: 0;
