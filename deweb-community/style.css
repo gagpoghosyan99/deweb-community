@@ -2009,12 +2009,13 @@ body::before {
 
 .account-dashboard-header {
   background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
-  padding: 12px 0;
+  padding: 14px 0;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.2);
 }
 
 .account-dashboard-header::before {
@@ -2025,6 +2026,19 @@ body::before {
   background-size: 200px 200px;
   opacity: 0.35;
   pointer-events: none;
+}
+
+.navbar-dashboard {
+  position: static;
+  top: auto;
+  left: auto;
+  transform: none;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 24px;
+  width: 100%;
+  max-width: 100%;
 }
 
 .navbar-dashboard .nav-links a {
@@ -2136,7 +2150,7 @@ body::before {
   display: flex;
   flex: 1;
   min-height: 0;
-  padding-top: 80px; /* clear fixed header so "My Profile" is visible */
+  padding-top: 64px; /* clear fixed header */
 }
 
 .account-dashboard-sidebar {
