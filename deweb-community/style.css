@@ -2004,13 +2004,17 @@ body::before {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f5f6fa;
+  background: linear-gradient(180deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
 }
 
 .account-dashboard-header {
   background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
   padding: 12px 0;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
 .account-dashboard-header::before {
@@ -2049,11 +2053,30 @@ body::before {
   margin-right: 8px;
 }
 
-.nav-icon-btn {
-  width: 36px;
-  height: 36px;
-  border: none;
+.nav-util-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  padding: 8px 12px;
   border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.15s, color 0.15s;
+}
+.nav-util-link:hover {
+  background: rgba(0, 212, 255, 0.2);
+  color: var(--accent-cyan);
+}
+.nav-util-link svg { flex-shrink: 0; }
+
+.nav-icon-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.1);
   color: var(--text-white);
   font-size: 16px;
@@ -2062,25 +2085,52 @@ body::before {
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  transition: background 0.15s, transform 0.1s;
 }
+.nav-icon-btn svg { stroke: currentColor; }
 
 .nav-icon-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(0, 212, 255, 0.25);
+  transform: translateY(-1px);
 }
 
 .nav-avatar {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: var(--accent-cyan);
   color: var(--primary-bg);
   font-weight: 800;
-  font-size: 13px;
+  font-size: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   text-decoration: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  transition: border-color 0.15s, transform 0.1s;
 }
+.nav-avatar:hover {
+  border-color: var(--accent-cyan);
+  transform: scale(1.05);
+}
+
+.lang-dd__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: var(--text-white);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.lang-dd__btn:hover { background: rgba(0, 212, 255, 0.2); }
+.lang-dd__btn svg { flex-shrink: 0; }
+.lang-dd__arrow { font-size: 10px; opacity: 0.7; }
 
 .account-dashboard-wrap {
   display: flex;
@@ -2247,19 +2297,60 @@ body::before {
   box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.2);
 }
 
-.profile-badge.verified {
+.profile-badge {
   font-size: 11px;
   font-weight: 800;
-  color: #2dd4bf;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-left: 6px;
+  margin-left: 8px;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+.profile-badge.verified {
+  color: #2dd4bf;
+  background: rgba(45, 212, 191, 0.15);
+}
+.profile-badge.pending {
+  color: #facc15;
+  background: rgba(250, 204, 21, 0.15);
 }
 
 .profile-row__arrow {
   font-size: 20px;
   color: rgba(255, 255, 255, 0.5);
   flex-shrink: 0;
+}
+
+.profile-row--action {
+  cursor: default;
+}
+.profile-row--action .profile-row__icon svg {
+  stroke: var(--accent-cyan);
+}
+.profile-action-btn {
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--accent-cyan);
+  color: var(--primary-bg);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  flex-shrink: 0;
+}
+.profile-action-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+.profile-action-btn.secondary {
+  background: transparent;
+  color: var(--accent-cyan);
+  border: 2px solid var(--accent-cyan);
+}
+.profile-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Verification modal */
@@ -2338,6 +2429,91 @@ body::before {
 .status-badge.status-paid, .status-badge.status-completed { background: rgba(45, 212, 191, 0.2); color: #2dd4bf; }
 .status-badge.status-pending, .status-badge.status-processing { background: rgba(250, 204, 21, 0.2); color: #facc15; }
 .status-badge.status-failed, .status-badge.status-cancelled { background: rgba(248, 113, 113, 0.2); color: #f87171; }
+
+/* Contact Preferences */
+.contact-prefs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.prefs-card {
+  text-align: center;
+  padding: 28px 24px;
+}
+.prefs-card__icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  background: rgba(0, 212, 255, 0.1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prefs-card h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #fff;
+}
+.prefs-card__desc {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.prefs-toggles {
+  text-align: left;
+}
+.pref-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+  cursor: pointer;
+}
+.pref-toggle:last-child { border-bottom: none; }
+.pref-toggle input { display: none; }
+.pref-toggle__slider {
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  position: relative;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.pref-toggle__slider::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.2s;
+}
+.pref-toggle input:checked + .pref-toggle__slider {
+  background: var(--accent-cyan);
+}
+.pref-toggle input:checked + .pref-toggle__slider::after {
+  transform: translateX(20px);
+}
+.pref-toggle__label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+}
+.prefs-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.prefs-saved-msg {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2dd4bf;
+}
 
 .dashboard-actions {
   display: flex;

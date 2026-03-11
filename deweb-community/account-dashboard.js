@@ -250,14 +250,76 @@ function renderDomainDefaults() {
 }
 
 function renderContactPrefs() {
+  const user = findMe() || {};
+  const prefs = user.contactPrefs || { renewalEmail: true, updatesEmail: true, marketingEmail: false, smsAlerts: false, pushNotifications: true };
   return `
-    <div class="section-block">
-      <h3>Contact preferences</h3>
-      <p>Choose how we contact you: marketing, renewal reminders, and security alerts.</p>
-      <p><label><input type="checkbox" checked /> Email: renewal reminders</label></p>
-      <p><label><input type="checkbox" checked /> Email: product updates</label></p>
-      <p><label><input type="checkbox" /> SMS: critical alerts</label></p>
-      <button class="cta-btn primary">Save preferences</button>
+    <div class="contact-prefs-grid">
+      <div class="section-block prefs-card">
+        <div class="prefs-card__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <h3>Email Notifications</h3>
+        <p class="prefs-card__desc">Control what emails you receive from us</p>
+        <div class="prefs-toggles">
+          <label class="pref-toggle">
+            <input type="checkbox" data-pref="renewalEmail" ${prefs.renewalEmail ? 'checked' : ''} />
+            <span class="pref-toggle__slider"></span>
+            <span class="pref-toggle__label">Renewal reminders</span>
+          </label>
+          <label class="pref-toggle">
+            <input type="checkbox" data-pref="updatesEmail" ${prefs.updatesEmail ? 'checked' : ''} />
+            <span class="pref-toggle__slider"></span>
+            <span class="pref-toggle__label">Product updates & news</span>
+          </label>
+          <label class="pref-toggle">
+            <input type="checkbox" data-pref="marketingEmail" ${prefs.marketingEmail ? 'checked' : ''} />
+            <span class="pref-toggle__slider"></span>
+            <span class="pref-toggle__label">Marketing & promotions</span>
+          </label>
+        </div>
+      </div>
+      <div class="section-block prefs-card">
+        <div class="prefs-card__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <h3>SMS Notifications</h3>
+        <p class="prefs-card__desc">Receive important alerts via text message</p>
+        <div class="prefs-toggles">
+          <label class="pref-toggle">
+            <input type="checkbox" data-pref="smsAlerts" ${prefs.smsAlerts ? 'checked' : ''} />
+            <span class="pref-toggle__slider"></span>
+            <span class="pref-toggle__label">Security alerts</span>
+          </label>
+          <label class="pref-toggle">
+            <input type="checkbox" data-pref="smsRenewals" ${prefs.smsRenewals ? 'checked' : ''} />
+            <span class="pref-toggle__slider"></span>
+            <span class="pref-toggle__label">Payment & renewal alerts</span>
+          </label>
+        </div>
+      </div>
+      <div class="section-block prefs-card">
+        <div class="prefs-card__icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent-cyan)" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
+        <h3>Push Notifications</h3>
+        <p class="prefs-card__desc">Browser and app push notifications</p>
+        <div class="prefs-toggles">
+          <label class="pref-toggle">
+            <input type="checkbox" data-pref="pushNotifications" ${prefs.pushNotifications ? 'checked' : ''} />
+            <span class="pref-toggle__slider"></span>
+            <span class="pref-toggle__label">Enable push notifications</span>
+          </label>
+          <label class="pref-toggle">
+            <input type="checkbox" data-pref="pushOrders" ${prefs.pushOrders ? 'checked' : ''} />
+            <span class="pref-toggle__slider"></span>
+            <span class="pref-toggle__label">Order status updates</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="prefs-actions">
+      <button type="button" class="cta-btn primary" id="saveContactPrefsBtn">Save preferences</button>
+      <span class="prefs-saved-msg" id="prefsSavedMsg" style="display:none">Preferences saved!</span>
     </div>
   `;
 }
@@ -288,8 +350,6 @@ const fieldMap = {
   organization: { valueEl: "profileOrganization", inputId: "editOrganization", key: "company" },
   email: { valueEl: "profileEmail", inputId: "editEmail", key: "email" },
   phone: { valueEl: "profilePhone", inputId: "editPhone", key: "phone" },
-  phone2: { valueEl: "profilePhone2", inputId: "editPhone2", key: "phone2" },
-  homePhone: { valueEl: "profileHomePhone", inputId: "editHomePhone", key: "homePhone" },
   currency: { valueEl: "profileCurrency", inputId: "editCurrency", key: "currency" }
 };
 
@@ -301,13 +361,12 @@ function fillProfile() {
   document.getElementById("profileOrganization").textContent = user.company || "—";
   document.getElementById("profileEmail").textContent = user.email || "—";
   document.getElementById("profilePhone").textContent = user.phone ? formatPhone(user.phone) : "—";
-  document.getElementById("profilePhone2").textContent = user.phone2 || "—";
-  document.getElementById("profileHomePhone").textContent = user.homePhone || "—";
   const currencyEl = document.getElementById("profileCurrency");
   const editCurrency = document.getElementById("editCurrency");
   currencyEl.textContent = user.currency || "USD";
   if (editCurrency) editCurrency.value = user.currency || "USD";
 
+  // Email & phone verification
   const emailVerified = user.emailVerified === true;
   const phoneVerified = user.phoneVerified === true;
   const emailBadge = document.getElementById("emailVerifiedBadge");
@@ -318,6 +377,37 @@ function fillProfile() {
   if (verifyEmailBtn) verifyEmailBtn.style.display = user.email && !emailVerified ? "inline" : "none";
   if (phoneBadge) phoneBadge.style.display = phoneVerified ? "inline" : "none";
   if (verifyPhoneBtn) verifyPhoneBtn.style.display = user.phone && !phoneVerified ? "inline" : "none";
+
+  // KYC status
+  const kycStatus = user.kycStatus || "not_submitted"; // not_submitted, pending, verified
+  const kycValue = document.getElementById("profileKyc");
+  const kycVerifiedBadge = document.getElementById("kycVerifiedBadge");
+  const kycPendingBadge = document.getElementById("kycPendingBadge");
+  const startKycBtn = document.getElementById("startKycBtn");
+  if (kycValue) {
+    if (kycStatus === "verified") kycValue.textContent = "Identity verified";
+    else if (kycStatus === "pending") kycValue.textContent = "Under review";
+    else kycValue.textContent = "Not submitted";
+  }
+  if (kycVerifiedBadge) kycVerifiedBadge.style.display = kycStatus === "verified" ? "inline" : "none";
+  if (kycPendingBadge) kycPendingBadge.style.display = kycStatus === "pending" ? "inline" : "none";
+  if (startKycBtn) {
+    if (kycStatus === "verified") { startKycBtn.textContent = "View"; startKycBtn.classList.add("secondary"); }
+    else if (kycStatus === "pending") { startKycBtn.textContent = "Check status"; startKycBtn.classList.add("secondary"); }
+    else { startKycBtn.textContent = "Start KYC"; startKycBtn.classList.remove("secondary"); }
+  }
+
+  // 2FA status
+  const tfaEnabled = user.tfaEnabled === true;
+  const tfaValue = document.getElementById("profile2fa");
+  const tfaEnabledBadge = document.getElementById("tfaEnabledBadge");
+  const setup2faBtn = document.getElementById("setup2faBtn");
+  if (tfaValue) tfaValue.textContent = tfaEnabled ? "Enabled (Authenticator app)" : "Disabled";
+  if (tfaEnabledBadge) tfaEnabledBadge.style.display = tfaEnabled ? "inline" : "none";
+  if (setup2faBtn) {
+    if (tfaEnabled) { setup2faBtn.textContent = "Manage"; setup2faBtn.classList.add("secondary"); }
+    else { setup2faBtn.textContent = "Setup 2FA"; setup2faBtn.classList.remove("secondary"); }
+  }
 }
 
 function setProfileDirty(dirty) {
@@ -344,7 +434,7 @@ document.querySelectorAll(".profile-row[data-field]").forEach(row => {
   });
 });
 
-["editName", "editAddress", "editOrganization", "editEmail", "editPhone", "editPhone2", "editHomePhone", "editCurrency"].forEach(id => {
+["editName", "editAddress", "editOrganization", "editEmail", "editPhone", "editCurrency"].forEach(id => {
   const input = document.getElementById(id);
   if (!input) return;
   function commit() {
@@ -363,7 +453,7 @@ document.querySelectorAll(".profile-row[data-field]").forEach(row => {
     }
     updateMe({ [cfg.key]: val });
     if (field === "name") document.getElementById("navAvatar").textContent = getInitials(val);
-    if (field === "phone" || field === "phone2" || field === "homePhone") val = val ? formatPhone(val) : "—";
+    if (field === "phone") val = val ? formatPhone(val) : "—";
     document.getElementById(cfg.valueEl).textContent = val || "—";
     input.style.display = "none";
     document.getElementById(cfg.valueEl).style.display = "";
@@ -439,6 +529,59 @@ verifyCodeInput?.addEventListener("keydown", (e) => {
 
 document.getElementById("verifyEmailBtn")?.addEventListener("click", (e) => { e.stopPropagation(); openVerifyModal("email"); });
 document.getElementById("verifyPhoneBtn")?.addEventListener("click", (e) => { e.stopPropagation(); openVerifyModal("phone"); });
+
+// ——— KYC & 2FA ———
+document.getElementById("startKycBtn")?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  const user = findMe();
+  if (!user) return;
+  if (user.kycStatus === "verified") {
+    alert("Your identity is verified. View your KYC documents in the Security section.");
+    return;
+  }
+  if (user.kycStatus === "pending") {
+    alert("Your KYC is under review. We'll notify you once it's approved (usually 1-2 business days).");
+    return;
+  }
+  // Mock: start KYC process
+  if (confirm("Start KYC verification?\n\nYou'll need to provide:\n• Government-issued ID\n• Proof of address\n• Selfie for verification\n\nClick OK to submit (demo: auto-pending).")) {
+    updateMe({ kycStatus: "pending" });
+    fillProfile();
+  }
+});
+
+document.getElementById("setup2faBtn")?.addEventListener("click", (e) => {
+  e.stopPropagation();
+  const user = findMe();
+  if (!user) return;
+  if (user.tfaEnabled) {
+    if (confirm("Two-Factor Authentication is enabled.\n\nClick OK to disable 2FA (not recommended).")) {
+      updateMe({ tfaEnabled: false });
+      fillProfile();
+    }
+  } else {
+    if (confirm("Enable Two-Factor Authentication?\n\nYou'll use an authenticator app (Google Authenticator, Authy, etc.) to generate codes.\n\nClick OK to enable (demo: instant enable).")) {
+      updateMe({ tfaEnabled: true });
+      fillProfile();
+    }
+  }
+});
+
+// ——— Contact Preferences save handler ———
+document.addEventListener("click", (e) => {
+  if (e.target && e.target.id === "saveContactPrefsBtn") {
+    const prefs = {};
+    document.querySelectorAll("[data-pref]").forEach(input => {
+      prefs[input.dataset.pref] = input.checked;
+    });
+    updateMe({ contactPrefs: prefs });
+    const msg = document.getElementById("prefsSavedMsg");
+    if (msg) {
+      msg.style.display = "inline";
+      setTimeout(() => { msg.style.display = "none"; }, 2000);
+    }
+  }
+});
 
 // ——— Init ———
 fillProfile();
